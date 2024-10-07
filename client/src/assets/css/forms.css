@@ -1,0 +1,33 @@
+input,
+.select-form {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(195, 192, 192);
+  outline: none;
+  padding-left: 1em;
+  margin-top: 5px;
+}
+
+.form-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.checkbox {
+  transform: scale(1.4);
+  margin-left: 10px;
+}
+
+.month-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.month-selector .date-info {
+  width: 300px;
+  margin-inline: 10px;
+}

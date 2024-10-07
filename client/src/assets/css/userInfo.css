@@ -1,0 +1,17 @@
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  background-color: rgb(47, 43, 43);
+  color: white;
+  padding: 20px;
+}
+
+.profile-img {
+  width: 60px;
+  background-color: white;
+  border-radius: 100%;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.57);
+}
