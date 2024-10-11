@@ -28,7 +28,7 @@ export default function NuevaAtencion({ user, onNuevaAtencion }) {
 
   const tipoDeSesion = [
     { nombre: "Atención" },
-    { nombre: "Diagnóstico" },
+    { nombre: "Evaluación" },
     { nombre: "Aseo" },
   ];
 

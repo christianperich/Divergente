@@ -42,7 +42,6 @@ export default function Nav() {
           ) : (
             <>
               <a href="/login">Iniciar Sesión</a>
-              <a href="/register">Registrarse</a>
             </>
           )}
         </div>
