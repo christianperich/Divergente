@@ -112,7 +112,7 @@ router.post("/agregar-profesional", async (req, res) => {
 });
 
 router.post("/agregar-usuario", async (req, res) => {
-  const { nombre, apoderado, profesional } = req.body;
+  const { nombre, apoderado } = req.body;
 
   const nuevoUsuario = new Usuario({
     nombre,

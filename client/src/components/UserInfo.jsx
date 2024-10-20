@@ -7,7 +7,11 @@ export default function UserInfo({ user }) {
       <div className="user-info">
         <img className="profile-img" src={profileImg} alt="" />
         <h2>{user.nombre}</h2>
-        <p>{user.email}</p>
+        <div className="user-links">
+          <a href="/">Mis Atenciones</a>
+          <a href="/evaluaciones">Mis Evaluaciones</a>
+          <a href="/nuevo-usuario">Nuevo Usuario</a>
+        </div>
       </div>
     </>
   );

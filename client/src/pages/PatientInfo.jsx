@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MonthSelector from "../components/MonthSelector";
 import TodasLasAtenciones from "../components/TodasLasAtenciones";
+import UserInfo from "../components/UserInfo";
 
-export default function PatientInfo() {
+export default function PatientInfo({ user }) {
   const [nombre, setNombre] = useState("");
   const [apoderado, setApoderado] = useState("");
   const [sesiones, setSesiones] = useState([]);
@@ -59,11 +60,36 @@ export default function PatientInfo() {
 
   return (
     <>
+      <UserInfo user={user} />
       <h1>{nombre}</h1>
-
       <MonthSelector onDateChange={handleDateChange} />
 
-      <TodasLasAtenciones sesiones={sesiones} />
+      <div className="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Usuario</th>
+              <th>Profesional</th>
+              <th>Tipo de atención</th>
+              <th>Pagado a Divergente</th>
+              <th>Pagado a Profesional</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sesiones.map((sesion) => (
+              <tr>
+                <td>{new Date(sesion.fecha).toISOString().split("T")[0]}</td>
+                <td>{sesion.usuario.nombre}</td>
+                <td>{sesion.profesional.nombre}</td>
+                <td>{sesion.tipo}</td>
+                <td>{sesion.pagadoDivergente ? "Si" : "No"}</td>
+                <td>{sesion.pagadoProfesional ? "Si" : "No"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <div className="card">
         <h3>Total a pagar</h3>

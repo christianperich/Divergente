@@ -26,8 +26,7 @@ export default function TodasLasAtenciones({ sesiones, onDelete }) {
             <tr>
               <th>Fecha</th>
               <th>Usuario</th>
-              <th>Tipo de sesión</th>
-              <th>Profesional</th>
+              <th>Estado de Pago</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -42,8 +41,7 @@ export default function TodasLasAtenciones({ sesiones, onDelete }) {
                     </a>
                   }
                 </td>
-                <td>{sesion.tipo}</td>
-                <td>{sesion.profesional.nombre}</td>
+                <td>{sesion.pagadoProfesional ? "Pagado" : "Pendiente"}</td>
                 <td className="actions">
                   <a
                     className="action"
@@ -56,7 +54,7 @@ export default function TodasLasAtenciones({ sesiones, onDelete }) {
             ))}
           </tbody>
         </table>
-        {sesiones.length === 0 && <p>No hay sesiones ingresadas aún.</p>}
+        {sesiones.length === 0 && <p>No hay sesiones ingresadas.</p>}
       </div>
     </div>
   );

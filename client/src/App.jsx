@@ -8,6 +8,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 import PatientInfo from "./pages/PatientInfo";
 import Admin from "./pages/Admin";
+import Evaluaciones from "./pages/Evaluaciones";
+import NuevoUsuario from "./pages/NuevoUsuario";
 
 function App() {
   return (
@@ -36,6 +38,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <Admin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/evaluaciones"
+            element={
+              <ProtectedRoute>
+                <Evaluaciones />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/nuevo-usuario"
+            element={
+              <ProtectedRoute>
+                <NuevoUsuario />
               </ProtectedRoute>
             }
           />

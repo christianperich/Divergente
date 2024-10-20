@@ -21,7 +21,22 @@ export default function Dashboard({ user }) {
           return;
         }
         const response = await axios.get(sesionesString);
-        setSesiones(response.data);
+
+        const esSesion = (sesion) => {
+          const fechaSesion = new Date(sesion.fecha);
+          const mesSesion = fechaSesion.getMonth();
+          const yearSesion = fechaSesion.getFullYear();
+
+          return (
+            (sesion.tipo === "Atención" || sesion.tipo === "Aseo") &&
+            mesSesion === mesActivo &&
+            yearSesion === yearActivo
+          );
+        };
+
+        const sesionesEvaluaciones = response.data.filter(esSesion);
+
+        setSesiones(sesionesEvaluaciones);
       } catch (err) {
         console.error("Error al obtener las sesiones:", err);
       }

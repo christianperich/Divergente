@@ -57,12 +57,6 @@ export default function Login() {
           <p className="errMsg">{errMsg}</p>
           <button type="submit">Ingresar</button>
         </form>
-        <p>
-          ¿Todavía no te has registrado?{" "}
-          <span>
-            <a href="/register">Regístrate aquí</a>
-          </span>
-        </p>
       </div>
     </>
   );

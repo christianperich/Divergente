@@ -7,10 +7,6 @@ export default function TotalAtenciones({ sesiones, mesActivo, yearActivo }) {
   let conBoleta = 0;
   let aseo = 0;
 
-  const evaluaciones = sesiones.filter(
-    (sesion) => sesion.tipo === "Evaluación"
-  );
-
   const valorSinBoleta = 20000;
   const valorConBoleta = 24500;
   const valorAseo = 11000;
@@ -55,7 +51,6 @@ export default function TotalAtenciones({ sesiones, mesActivo, yearActivo }) {
 
           <p>Atenciones sin boleta: {sinBoleta}</p>
           <p>Atenciones con boleta: {conBoleta}</p>
-          <p>Evaluaciones: {evaluaciones.length}</p>
         </div>
 
         <div className="card-info-item">
