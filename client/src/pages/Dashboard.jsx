@@ -63,6 +63,7 @@ export default function Dashboard({ user }) {
             sesiones={sesiones}
             mesActivo={mesActivo}
             yearActivo={yearActivo}
+            tipoDeSesion={tipoDeSesion}
           />
           <TodasLasAtenciones
             user={user}

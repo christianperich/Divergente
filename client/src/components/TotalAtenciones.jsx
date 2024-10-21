@@ -1,13 +1,23 @@
 import { useState, useEffect } from "react";
 
-export default function TotalAtenciones({ sesiones, mesActivo, yearActivo }) {
+export default function TotalAtenciones({
+  sesiones,
+  mesActivo,
+  yearActivo,
+  tipoDeSesion,
+}) {
   const [totalAtenciones, setTotalAtenciones] = useState(0);
   const [sinBoleta, setSinBoleta] = useState(0);
   const [conBoleta, setConBoleta] = useState(0);
+
   const [aseo, setAseo] = useState(0);
 
-  const valorSinBoleta = 20000;
-  const valorConBoleta = 24500;
+  let valorSinBoletaAtencion = 20000;
+  let valorConBoletaAtencion = 24500;
+
+  let valorSinBoletaEvaluacion = 25000;
+  let valorConBoletaEvaluacion = 30000;
+
   const valorAseo = 11000;
 
   useEffect(() => {
@@ -19,7 +29,7 @@ export default function TotalAtenciones({ sesiones, mesActivo, yearActivo }) {
       const fecha = new Date(sesion.fecha);
 
       if (
-        sesion.tipo === "Atención" &&
+        sesion.tipo === tipoDeSesion[0].nombre &&
         fecha.getMonth() === mesActivo &&
         fecha.getFullYear() === yearActivo
       ) {
@@ -45,11 +55,14 @@ export default function TotalAtenciones({ sesiones, mesActivo, yearActivo }) {
     setAseo(contadorAseo);
 
     const total =
-      contadorConBoleta * valorConBoleta +
-      contadorSinBoleta * valorSinBoleta +
-      contadorAseo * valorAseo;
+      tipoDeSesion[0].nombre === "Atención"
+        ? contadorSinBoleta * valorSinBoletaAtencion +
+          contadorConBoleta * valorConBoletaAtencion
+        : contadorSinBoleta * valorSinBoletaEvaluacion +
+          contadorConBoleta * valorConBoletaEvaluacion;
+
     setTotalAtenciones(total);
-  }, [sesiones, mesActivo, yearActivo]);
+  }, [sesiones, mesActivo, yearActivo, tipoDeSesion]);
 
   return (
     <div className="card">
@@ -57,8 +70,18 @@ export default function TotalAtenciones({ sesiones, mesActivo, yearActivo }) {
         <div className="card-info-item">
           <h3>Este mes has realizado:</h3>
 
-          <p>Atenciones sin boleta: {sinBoleta}</p>
-          <p>Atenciones con boleta: {conBoleta}</p>
+          <p>
+            {tipoDeSesion[0].nombre === "Evaluación"
+              ? "Evaluación Niño(a)"
+              : "Atención sin boleta"}
+            : {sinBoleta}
+          </p>
+          <p>
+            {tipoDeSesion[0].nombre === "Evaluación"
+              ? "Evaluación Adulto(a)"
+              : "Atención con boleta"}
+            : {conBoleta}
+          </p>
         </div>
 
         <div className="card-info-item">

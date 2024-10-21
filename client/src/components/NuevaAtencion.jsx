@@ -99,7 +99,11 @@ export default function NuevaAtencion({ user, onNuevaAtencion, tipoDeSesion }) {
         </div>
 
         <div>
-          <label htmlFor="boleta">Requiere boleta: </label>
+          <label htmlFor="boleta">
+            {tipoDeSesion[0].nombre === "Evaluación"
+              ? "¿Es adulto?"
+              : "Requiere boleta"}{" "}
+          </label>
           <input
             className="checkbox"
             type="checkbox"

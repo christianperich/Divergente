@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import MonthSelector from "../components/MonthSelector";
 import TodasLasAtenciones from "../components/TodasLasAtenciones";
+import TotalAtenciones from "../components/TotalAtenciones";
 
 export default function Evaluaciones({ user }) {
   const [mesActivo, setMesActivo] = useState(new Date().getMonth());
@@ -41,14 +42,14 @@ export default function Evaluaciones({ user }) {
 
   const handleDelete = async () => {
     const response = await axios.get(
-      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`
     );
     setSesiones(response.data);
   };
 
   const handleNuevaEvaluacion = async () => {
     const response = await axios.get(
-      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`
     );
     setSesiones(response.data);
   };
@@ -60,6 +61,13 @@ export default function Evaluaciones({ user }) {
       <div className="container">
         <MonthSelector onDateChange={handleDateChange} />
       </div>
+
+      <TotalAtenciones
+        sesiones={sesiones}
+        mesActivo={mesActivo}
+        yearActivo={yearActivo}
+        tipoDeSesion={tipoDeSesion}
+      />
 
       <TodasLasAtenciones
         sesiones={sesiones}
