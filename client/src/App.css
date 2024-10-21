@@ -105,6 +105,12 @@ a {
   margin-bottom: 10px;
 }
 
+.msg {
+  color: green;
+  text-align: center;
+  margin-top: 20px;
+}
+
 p {
   text-align: center;
 }

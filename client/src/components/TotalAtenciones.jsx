@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 
 export default function TotalAtenciones({ sesiones, mesActivo, yearActivo }) {
   const [totalAtenciones, setTotalAtenciones] = useState(0);
-
-  let sinBoleta = 0;
-  let conBoleta = 0;
-  let aseo = 0;
+  const [sinBoleta, setSinBoleta] = useState(0);
+  const [conBoleta, setConBoleta] = useState(0);
+  const [aseo, setAseo] = useState(0);
 
   const valorSinBoleta = 20000;
   const valorConBoleta = 24500;
   const valorAseo = 11000;
 
   useEffect(() => {
+    let contadorSinBoleta = 0;
+    let contadorConBoleta = 0;
+    let contadorAseo = 0;
+
     sesiones.forEach((sesion) => {
       const fecha = new Date(sesion.fecha);
 
@@ -21,9 +24,9 @@ export default function TotalAtenciones({ sesiones, mesActivo, yearActivo }) {
         fecha.getFullYear() === yearActivo
       ) {
         if (sesion.boleta) {
-          conBoleta++;
+          contadorConBoleta++;
         } else {
-          sinBoleta++;
+          contadorSinBoleta++;
         }
       }
 
@@ -32,16 +35,21 @@ export default function TotalAtenciones({ sesiones, mesActivo, yearActivo }) {
         fecha.getMonth() === mesActivo &&
         fecha.getFullYear() === yearActivo
       ) {
-        aseo++;
+        contadorAseo++;
       }
     });
 
+    // Actualizar los estados
+    setSinBoleta(contadorSinBoleta);
+    setConBoleta(contadorConBoleta);
+    setAseo(contadorAseo);
+
     const total =
-      conBoleta * valorConBoleta +
-      sinBoleta * valorSinBoleta +
-      aseo * valorAseo;
+      contadorConBoleta * valorConBoleta +
+      contadorSinBoleta * valorSinBoleta +
+      contadorAseo * valorAseo;
     setTotalAtenciones(total);
-  }, [sesiones]);
+  }, [sesiones, mesActivo, yearActivo]);
 
   return (
     <div className="card">

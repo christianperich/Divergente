@@ -6,6 +6,7 @@ import UserInfo from "../components/UserInfo";
 export default function NuevoUsuario({ user }) {
   const [newUserNombre, setNewUserName] = useState("");
   const [newUserApoderado, setNewUserApoderado] = useState("");
+  const [msg, setMsg] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,8 +22,12 @@ export default function NuevoUsuario({ user }) {
     try {
       const response = await axios.post("/api/agregar-usuario", nuevoUsuario);
       console.log(response.data);
+      setMsg(response.data);
+      setNewUserName("");
+      setNewUserApoderado("");
     } catch (error) {
       console.error(error);
+      setMsg("Error al agregar usuario. Por favor, inténtelo de nuevo.");
     }
   };
 
@@ -38,7 +43,9 @@ export default function NuevoUsuario({ user }) {
               type="text"
               name="nombre"
               placeholder="Nombre del atendido(a)"
+              value={newUserNombre}
               onChange={(e) => setNewUserName(e.target.value)}
+              required
             />
           </div>
           <div className="form-info">
@@ -46,11 +53,14 @@ export default function NuevoUsuario({ user }) {
               type="text"
               name="apoderado"
               placeholder="Nombre del apoderado(a)"
+              value={newUserApoderado}
               onChange={(e) => setNewUserApoderado(e.target.value)}
+              required
             />
           </div>
           <button>Agregar</button>
         </form>
+        {msg && <p className="msg">{msg}</p>}
       </div>
     </>
   );

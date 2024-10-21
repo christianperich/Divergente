@@ -121,7 +121,7 @@ router.post("/agregar-usuario", async (req, res) => {
 
   await nuevoUsuario.save();
 
-  res.json(nuevoUsuario);
+  res.status(200).json("Usuario agregado con éxito");
 });
 
 router.post("/agregar-sesion", async (req, res) => {
@@ -141,14 +141,16 @@ router.post("/agregar-sesion", async (req, res) => {
 
   await nuevaSesion.save();
 
-  return res.status(200).json(nuevaSesion);
+  return res
+    .status(200)
+    .json("Los datos de la sesión se han guardado exitosamente.");
 });
 
 // Buscar información en la BD
 
 router.get("/sesiones/:id", async (req, res) => {
   const { id } = req.params;
-  const { month, year } = req.query;
+  const { month, year, tipoDeSesion } = req.query;
 
   const yearNumber = parseInt(year);
 
@@ -175,6 +177,7 @@ router.get("/sesiones/:id", async (req, res) => {
       $gte: startOfMonth,
       $lte: endOfMonth,
     },
+    tipo: tipoDeSesion,
   })
     .sort({ fecha: 1 })
     .populate("usuario profesional");

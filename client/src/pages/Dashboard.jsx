@@ -11,7 +11,8 @@ export default function Dashboard({ user }) {
   const [mesActivo, setMesActivo] = useState(new Date().getMonth());
   const [yearActivo, setYearActivo] = useState(new Date().getFullYear());
 
-  const sesionesString = `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}`;
+  const tipoDeSesion = [{ nombre: "Atención" }, { nombre: "Aseo" }];
+  const tipodeSesionNombres = "Atención";
 
   useEffect(() => {
     const fetchSesiones = async () => {
@@ -20,23 +21,11 @@ export default function Dashboard({ user }) {
           console.error("Error: Parámetros inválidos al hacer la solicitud.");
           return;
         }
-        const response = await axios.get(sesionesString);
+        const response = await axios.get(
+          `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+        );
 
-        const esSesion = (sesion) => {
-          const fechaSesion = new Date(sesion.fecha);
-          const mesSesion = fechaSesion.getMonth();
-          const yearSesion = fechaSesion.getFullYear();
-
-          return (
-            (sesion.tipo === "Atención" || sesion.tipo === "Aseo") &&
-            mesSesion === mesActivo &&
-            yearSesion === yearActivo
-          );
-        };
-
-        const sesionesEvaluaciones = response.data.filter(esSesion);
-
-        setSesiones(sesionesEvaluaciones);
+        setSesiones(response.data);
       } catch (err) {
         console.error("Error al obtener las sesiones:", err);
       }
@@ -45,12 +34,16 @@ export default function Dashboard({ user }) {
   }, [user, mesActivo, yearActivo]);
 
   const handleNuevaAtencion = async () => {
-    const response = await axios.get(sesionesString);
+    const response = await axios.get(
+      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+    );
     setSesiones(response.data);
   };
 
   const handleDelete = async () => {
-    const response = await axios.get(sesionesString);
+    const response = await axios.get(
+      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+    );
     setSesiones(response.data);
   };
 
@@ -77,7 +70,11 @@ export default function Dashboard({ user }) {
             onDelete={handleDelete}
             mesActivo={mesActivo}
           />
-          <NuevaAtencion user={user} onNuevaAtencion={handleNuevaAtencion} />
+          <NuevaAtencion
+            user={user}
+            onNuevaAtencion={handleNuevaAtencion}
+            tipoDeSesion={tipoDeSesion}
+          />
         </div>
       </div>
     </>

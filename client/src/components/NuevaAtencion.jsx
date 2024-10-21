@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
 
-export default function NuevaAtencion({ user, onNuevaAtencion }) {
+export default function NuevaAtencion({ user, onNuevaAtencion, tipoDeSesion }) {
   const [nombre, setNombre] = useState("");
   const [fecha, setFecha] = useState("");
   const [sesion, setSesion] = useState("");
   const [usuarios, setUsuarios] = useState();
   const [boleta, setBoleta] = useState(false);
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,11 +27,10 @@ export default function NuevaAtencion({ user, onNuevaAtencion }) {
     label: usuario.nombre,
   }));
 
-  const tipoDeSesion = [
-    { nombre: "Atención" },
-    { nombre: "Evaluación" },
-    { nombre: "Aseo" },
-  ];
+  const tipoDeSesiones = tipoDeSesion.map((sesion) => ({
+    value: sesion.nombre,
+    label: sesion.nombre,
+  }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,7 +50,11 @@ export default function NuevaAtencion({ user, onNuevaAtencion }) {
 
     try {
       const response = await axios.post("/api/agregar-sesion", nuevaSesion);
+      setMsg(response.data);
       onNuevaAtencion();
+      setNombre("");
+      setFecha("");
+      setSesion("");
     } catch (err) {
       console.error("Error al ingresar la sesión:", err);
     }
@@ -65,6 +69,7 @@ export default function NuevaAtencion({ user, onNuevaAtencion }) {
           <input
             type="date"
             name="fecha"
+            value={fecha}
             onChange={(e) => setFecha(e.target.value)}
             required
           />
@@ -74,6 +79,7 @@ export default function NuevaAtencion({ user, onNuevaAtencion }) {
           <Select
             placeholder="Seleciona un usuario"
             options={todosLosUsuarios}
+            value={nombre}
             onChange={(e) => setNombre(e)}
             required
           />
@@ -86,6 +92,7 @@ export default function NuevaAtencion({ user, onNuevaAtencion }) {
               value: sesion.nombre,
               label: sesion.nombre,
             }))}
+            value={sesion}
             onChange={(e) => setSesion(e)}
             required
           />
@@ -103,6 +110,8 @@ export default function NuevaAtencion({ user, onNuevaAtencion }) {
         <br />
         <button>Ingresar</button>
       </form>
+
+      <p className="msg">{msg}</p>
     </div>
   );
 }

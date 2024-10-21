@@ -4,12 +4,15 @@ import NuevaAtencion from "../components/NuevaAtencion";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MonthSelector from "../components/MonthSelector";
-import { MdOutlineDeleteForever } from "react-icons/md";
+import TodasLasAtenciones from "../components/TodasLasAtenciones";
 
 export default function Evaluaciones({ user }) {
   const [mesActivo, setMesActivo] = useState(new Date().getMonth());
   const [yearActivo, setYearActivo] = useState(new Date().getFullYear());
-  const [evaluaciones, setEvaluaciones] = useState([]);
+  const [sesiones, setSesiones] = useState([]);
+
+  const tipoDeSesion = [{ nombre: "Evaluación" }];
+  const tipoDeSesionNombre = "Evaluación";
 
   useEffect(() => {
     const fetchEvaluaciones = async () => {
@@ -19,13 +22,10 @@ export default function Evaluaciones({ user }) {
           return;
         }
         const response = await axios.get(
-          `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}`
+          `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`
         );
 
-        const esEvaluacion = (sesion) => sesion.tipo === "Evaluación";
-        const sesionesEvaluaciones = response.data.filter(esEvaluacion);
-
-        setEvaluaciones(sesionesEvaluaciones);
+        setSesiones(response.data);
       } catch (err) {
         console.error("Error al obtener las evaluaciones:", err);
       }
@@ -34,11 +34,23 @@ export default function Evaluaciones({ user }) {
     fetchEvaluaciones();
   }, [user, mesActivo, yearActivo]);
 
-  console.log(evaluaciones);
-
   const handleDateChange = (month, year) => {
     setMesActivo(month);
     setYearActivo(year);
+  };
+
+  const handleDelete = async () => {
+    const response = await axios.get(
+      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+    );
+    setSesiones(response.data);
+  };
+
+  const handleNuevaEvaluacion = async () => {
+    const response = await axios.get(
+      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+    );
+    setSesiones(response.data);
   };
 
   return (
@@ -49,39 +61,19 @@ export default function Evaluaciones({ user }) {
         <MonthSelector onDateChange={handleDateChange} />
       </div>
 
-      <div className="card">
-        <table>
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Usuario</th>
-              <th>Estado de pago</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {evaluaciones.map((evaluacion) => (
-              <tr key={evaluacion._id}>
-                <td>
-                  {new Date(evaluacion.fecha).toISOString().split("T")[0]}
-                </td>
-                <td>{evaluacion.usuario.nombre}</td>
-                <td>{evaluacion.pagadoProfesional ? "Pagada" : "Pendiente"}</td>
-                <td className="actions">
-                  <a
-                    className="action"
-                    onClick={() => handleDelete(sesion._id)}
-                  >
-                    <MdOutlineDeleteForever />
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {evaluaciones.length === 0 && <p>No hay evaluaciones ingresadas.</p>}
-      </div>
-      <NuevaAtencion />
+      <TodasLasAtenciones
+        sesiones={sesiones}
+        onDelete={handleDelete}
+        tipoDeSesion={tipoDeSesion}
+        mesActivo={mesActivo}
+        yearActivo={yearActivo}
+      />
+
+      <NuevaAtencion
+        user={user}
+        tipoDeSesion={tipoDeSesion}
+        onNuevaAtencion={handleNuevaEvaluacion}
+      />
     </>
   );
 }
