@@ -15,8 +15,8 @@ export default function TotalAtenciones({
   let valorSinBoletaAtencion = 20000;
   let valorConBoletaAtencion = 24500;
 
-  let valorSinBoletaEvaluacion = 25000;
-  let valorConBoletaEvaluacion = 30000;
+  let ValorEvaluacionNino = 28000;
+  let ValorEvaluacionAdulto = 30000;
 
   const valorAseo = 11000;
 
@@ -58,8 +58,8 @@ export default function TotalAtenciones({
       tipoDeSesion[0].nombre === "Atención"
         ? contadorSinBoleta * valorSinBoletaAtencion +
           contadorConBoleta * valorConBoletaAtencion
-        : contadorSinBoleta * valorSinBoletaEvaluacion +
-          contadorConBoleta * valorConBoletaEvaluacion;
+        : contadorSinBoleta * ValorEvaluacionNino +
+          contadorConBoleta * ValorEvaluacionAdulto;
 
     setTotalAtenciones(total);
   }, [sesiones, mesActivo, yearActivo, tipoDeSesion]);
