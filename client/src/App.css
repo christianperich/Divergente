@@ -39,10 +39,6 @@ body {
   margin: 0.5em;
 }
 
-.card .card-info .card-info-item {
-  margin-inline: 4em;
-}
-
 .logo {
   width: 200px;
 }
@@ -135,4 +131,37 @@ table {
 td,
 th {
   padding: 10px;
+}
+
+@media (max-width: 750px) {
+  .card {
+    max-width: 600px;
+  }
+
+  .card-info-item {
+    max-width: 300px;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .card {
+    max-width: 450px;
+    padding: 20px;
+  }
+
+  .card-info-item {
+    max-width: 300px;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  nav {
+    flex-direction: column;
+  }
 }
