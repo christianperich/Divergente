@@ -14,7 +14,7 @@ export default function Login() {
     e.preventDefault();
 
     const user = {
-      email,
+      email: email.toLowerCase(),
       password,
     };
 

@@ -88,6 +88,7 @@ h3 {
 .money {
   font-size: 2rem;
   color: rgb(255, 106, 0);
+  font-weight: 600;
 }
 
 a {
@@ -138,10 +139,6 @@ th {
     max-width: 600px;
   }
 
-  .card-info-item {
-    max-width: 300px;
-  }
-
   h3 {
     font-size: 1rem;
   }
@@ -153,15 +150,50 @@ th {
     padding: 20px;
   }
 
-  .card-info-item {
-    max-width: 300px;
-  }
-
   h3 {
     font-size: 1rem;
   }
 
   nav {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  .card {
+    max-width: 360px;
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  .money {
+    font-size: 1.5rem;
+  }
+
+  nav {
+    flex-direction: column;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+
+  td {
+    width: 100px;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0;
+  }
+
+  .user-links a {
+    width: 100%;
+    text-align: center;
   }
 }

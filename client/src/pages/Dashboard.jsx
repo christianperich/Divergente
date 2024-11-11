@@ -11,7 +11,7 @@ export default function Dashboard({ user }) {
   const [mesActivo, setMesActivo] = useState(new Date().getMonth());
   const [yearActivo, setYearActivo] = useState(new Date().getFullYear());
 
-  const tipoDeSesion = [{ nombre: "Atención" }, { nombre: "Aseo" }];
+  const tipoDeSesion = [{ nombre: "Atención" }];
   const tipodeSesionNombres = "Atención";
 
   useEffect(() => {

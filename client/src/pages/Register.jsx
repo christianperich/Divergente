@@ -24,7 +24,7 @@ export default function Register() {
 
     const nuevoProfesional = {
       nombre,
-      email,
+      email: email.toLowerCase(),
       password,
     };
 
