@@ -160,16 +160,22 @@ router.get("/sesiones/:id", async (req, res) => {
     return res.status(400).json({ error: "Mes no válido" });
   }
 
-  const startOfMonth = moment()
+  const startOfMonth = moment
+    .utc()
     .year(yearNumber)
     .month(monthNumber)
     .startOf("month")
     .toDate();
-  const endOfMonth = moment()
+
+  const endOfMonth = moment
+    .utc()
     .year(yearNumber)
     .month(monthNumber)
     .endOf("month")
     .toDate();
+
+  console.log(startOfMonth);
+  console.log(endOfMonth);
 
   const sesiones = await Sesion.find({
     profesional: id,

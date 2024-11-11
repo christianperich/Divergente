@@ -17,6 +17,8 @@ export default function TodasLasAtenciones({ sesiones, onDelete }) {
     }
   };
 
+  console.log(sesiones);
+
   return (
     <div className="card">
       <div>

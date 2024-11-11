@@ -28,10 +28,21 @@ export default function TotalAtenciones({
     sesiones.forEach((sesion) => {
       const fecha = new Date(sesion.fecha);
 
+      const fechaUTC = new Date(
+        Date.UTC(
+          fecha.getUTCFullYear(),
+          fecha.getUTCMonth(),
+          fecha.getUTCDate()
+        )
+      );
+
+      const yearSesion = fechaUTC.getUTCFullYear();
+      const monthSesion = fechaUTC.getUTCMonth();
+
       if (
         sesion.tipo === tipoDeSesion[0].nombre &&
-        fecha.getMonth() === mesActivo &&
-        fecha.getFullYear() === yearActivo
+        monthSesion === mesActivo &&
+        yearSesion === yearActivo
       ) {
         if (sesion.boleta) {
           contadorConBoleta++;
@@ -42,8 +53,8 @@ export default function TotalAtenciones({
 
       if (
         sesion.tipo === "Aseo" &&
-        fecha.getMonth() === mesActivo &&
-        fecha.getFullYear() === yearActivo
+        monthSesion === mesActivo &&
+        yearSesion === yearActivo
       ) {
         contadorAseo++;
       }
