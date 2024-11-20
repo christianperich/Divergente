@@ -148,9 +148,8 @@ router.post("/agregar-sesion", async (req, res) => {
 
 // Buscar información en la BD
 
-router.get("/sesiones/:id", async (req, res) => {
-  const { id } = req.params;
-  const { month, year, tipoDeSesion } = req.query;
+router.get("/sesiones/", async (req, res) => {
+  const { month, year } = req.query;
 
   const yearNumber = parseInt(year);
 
@@ -174,8 +173,47 @@ router.get("/sesiones/:id", async (req, res) => {
     .endOf("month")
     .toDate();
 
-  console.log(startOfMonth);
-  console.log(endOfMonth);
+  const sesiones = await Sesion.find({
+    fecha: {
+      $gte: startOfMonth,
+      $lte: endOfMonth,
+    },
+  })
+    .sort({ profesional: 1, fecha: 1 })
+    .populate("usuario profesional");
+
+  return res.status(200).json(sesiones);
+});
+
+router.get("/sesiones/:id", async (req, res) => {
+  const { id } = req.params;
+  let { month, year, tipoDeSesion } = req.query;
+
+  if (tipoDeSesion !== "Evaluación") {
+    tipoDeSesion = { $in: ["Aseo", "Atención"] };
+  }
+
+  const yearNumber = parseInt(year);
+
+  const monthNumber = parseInt(month);
+
+  if (isNaN(monthNumber) || monthNumber < 0 || monthNumber > 11) {
+    return res.status(400).json({ error: "Mes no válido" });
+  }
+
+  const startOfMonth = moment
+    .utc()
+    .year(yearNumber)
+    .month(monthNumber)
+    .startOf("month")
+    .toDate();
+
+  const endOfMonth = moment
+    .utc()
+    .year(yearNumber)
+    .month(monthNumber)
+    .endOf("month")
+    .toDate();
 
   const sesiones = await Sesion.find({
     profesional: id,
@@ -189,6 +227,22 @@ router.get("/sesiones/:id", async (req, res) => {
     .populate("usuario profesional");
 
   return res.status(200).json(sesiones);
+});
+
+router.put("/sesiones/:id", async (req, res) => {
+  const { id } = req.params;
+  const { pagadoProfesional, pagadoDivergente } = req.body;
+
+  console.log(req.body);
+
+  // await Sesion.findOneAndUpdate(
+  //   { _id: id },
+  //   { pagadoProfesional, pagadoDivergente }
+  // );
+
+  return res
+    .status(200)
+    .json("Los datos de la sesión se han guardado exitosamente.");
 });
 
 router.get("/usuarios", async (req, res) => {

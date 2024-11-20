@@ -88,10 +88,11 @@ export default function NuevaAtencion({ user, onNuevaAtencion, tipoDeSesion }) {
         <div className="form-info">
           <Select
             placeholder="Selecciona el tipo de atención"
-            options={tipoDeSesion.map((sesion) => ({
-              value: sesion.nombre,
-              label: sesion.nombre,
-            }))}
+            options={
+              tipoDeSesion[0].nombre === "Evaluación"
+                ? tipoDeSesiones
+                : tipoDeSesiones
+            }
             value={sesion}
             onChange={(e) => setSesion(e)}
             required

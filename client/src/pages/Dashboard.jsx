@@ -11,8 +11,8 @@ export default function Dashboard({ user }) {
   const [mesActivo, setMesActivo] = useState(new Date().getMonth());
   const [yearActivo, setYearActivo] = useState(new Date().getFullYear());
 
-  const tipoDeSesion = [{ nombre: "Atención" }];
-  const tipodeSesionNombres = "Atención";
+  const tipoDeSesion = [{ nombre: "Atención" }, { nombre: "Aseo" }];
+  const tipodeSesionNombres = "Aseo";
 
   useEffect(() => {
     const fetchSesiones = async () => {
@@ -22,9 +22,10 @@ export default function Dashboard({ user }) {
           return;
         }
         const response = await axios.get(
-          `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+          `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}`,
+          tipodeSesionNombres
         );
-
+        console.log(response.data);
         setSesiones(response.data);
       } catch (err) {
         console.error("Error al obtener las sesiones:", err);
@@ -56,7 +57,7 @@ export default function Dashboard({ user }) {
     <>
       <UserInfo user={user} />
       <h1>Mis Atenciones</h1>
-      <div className="container">
+      <div>
         <div>
           <MonthSelector onDateChange={handleDateChange} />
           <TotalAtenciones

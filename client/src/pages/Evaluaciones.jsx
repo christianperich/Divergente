@@ -58,9 +58,8 @@ export default function Evaluaciones({ user }) {
     <>
       <UserInfo user={user} />
       <h1>Mis Evaluaciones</h1>
-      <div className="container">
-        <MonthSelector onDateChange={handleDateChange} />
-      </div>
+
+      <MonthSelector onDateChange={handleDateChange} />
 
       <TotalAtenciones
         sesiones={sesiones}

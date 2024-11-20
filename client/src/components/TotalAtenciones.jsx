@@ -68,7 +68,8 @@ export default function TotalAtenciones({
     const total =
       tipoDeSesion[0].nombre === "Atención"
         ? contadorSinBoleta * valorSinBoletaAtencion +
-          contadorConBoleta * valorConBoletaAtencion
+          contadorConBoleta * valorConBoletaAtencion +
+          contadorAseo * valorAseo
         : contadorSinBoleta * ValorEvaluacionNino +
           contadorConBoleta * ValorEvaluacionAdulto;
 

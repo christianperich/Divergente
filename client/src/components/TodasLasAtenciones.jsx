@@ -17,8 +17,6 @@ export default function TodasLasAtenciones({ sesiones, onDelete }) {
     }
   };
 
-  console.log(sesiones);
-
   return (
     <div className="card">
       <div>
@@ -28,6 +26,7 @@ export default function TodasLasAtenciones({ sesiones, onDelete }) {
             <tr>
               <th>Fecha</th>
               <th>Usuario</th>
+              <th>Tipo de sesión</th>
               <th>Estado de Pago</th>
               <th>Acciones</th>
             </tr>
@@ -43,6 +42,7 @@ export default function TodasLasAtenciones({ sesiones, onDelete }) {
                     </a>
                   }
                 </td>
+                <td>{sesion.tipo}</td>
                 <td>{sesion.pagadoProfesional ? "Pagado" : "Pendiente"}</td>
                 <td className="actions">
                   <a
