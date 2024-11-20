@@ -33,14 +33,19 @@ export default function Admin() {
 
   const handlePagoADivergente = async (id, estaPagado) => {
     try {
-      if (estaPagado) {
-        await axios.put(`/api/sesiones/${id}/`, { pagadoDivergente: false });
-        console.log("Pago actualizado");
-        return;
-      } else {
-        await axios.put(`/api/sesiones/${id}/`, { pagadoDivergente: true });
-        console.log("Pago actualizado");
-      }
+      const updatedPago = !estaPagado; // Invertimos el estado actual
+      await axios.put(`/api/sesiones/${id}/`, {
+        pagadoDivergente: updatedPago,
+      });
+
+      // Actualizamos el estado local
+      setSesiones((prevSesiones) =>
+        prevSesiones.map((sesion) =>
+          sesion._id === id
+            ? { ...sesion, pagadoDivergente: updatedPago }
+            : sesion
+        )
+      );
     } catch (err) {
       console.error("Error al actualizar el pago:", err);
     }
@@ -48,14 +53,19 @@ export default function Admin() {
 
   const handlePagoAProfesional = async (id, estaPagado) => {
     try {
-      if (estaPagado) {
-        await axios.put(`/api/sesiones/${id}/`, { pagadoProfesional: false });
-        console.log("Pago actualizado");
-        return;
-      } else {
-        await axios.put(`/api/sesiones/${id}/`, { pagadoProfesional: true });
-        console.log("Pago actualizado");
-      }
+      const updatedPago = !estaPagado; // Invertimos el estado actual
+      await axios.put(`/api/sesiones/${id}/`, {
+        pagadoProfesional: updatedPago,
+      });
+
+      // Actualizamos el estado local
+      setSesiones((prevSesiones) =>
+        prevSesiones.map((sesion) =>
+          sesion._id === id
+            ? { ...sesion, pagadoProfesional: updatedPago }
+            : sesion
+        )
+      );
     } catch (err) {
       console.error("Error al actualizar el pago:", err);
     }

@@ -233,12 +233,10 @@ router.put("/sesiones/:id", async (req, res) => {
   const { id } = req.params;
   const { pagadoProfesional, pagadoDivergente } = req.body;
 
-  console.log(req.body);
-
-  // await Sesion.findOneAndUpdate(
-  //   { _id: id },
-  //   { pagadoProfesional, pagadoDivergente }
-  // );
+  await Sesion.findOneAndUpdate(
+    { _id: id },
+    { pagadoProfesional, pagadoDivergente }
+  );
 
   return res
     .status(200)
