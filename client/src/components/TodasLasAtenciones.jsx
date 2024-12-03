@@ -1,7 +1,18 @@
 import { MdOutlineDeleteForever } from "react-icons/md";
+import { FaSort } from "react-icons/fa";
 import axios from "axios";
+import { useState, useEffect } from "react";
 
-export default function TodasLasAtenciones({ sesiones, onDelete }) {
+export default function TodasLasAtenciones({
+  sesiones: initialSesiones,
+  onDelete,
+}) {
+  const [sesiones, setSesiones] = useState(initialSesiones);
+
+  useEffect(() => {
+    setSesiones(initialSesiones); // Actualizar estado si cambia la prop
+  }, [initialSesiones]);
+
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
       "¿Estás seguro de que deseas eliminar esta sesión?"
@@ -17,6 +28,25 @@ export default function TodasLasAtenciones({ sesiones, onDelete }) {
     }
   };
 
+  const handleSort = (criterio) => {
+    const sortedSesiones = [...sesiones].sort((a, b) => {
+      if (criterio === "fecha") {
+        return new Date(a.fecha) - new Date(b.fecha);
+      } else if (criterio === "usuario") {
+        return a.usuario.nombre.localeCompare(b.usuario.nombre);
+      } else if (criterio === "tipoDeSesion") {
+        return a.tipo.localeCompare(b.tipo);
+      } else if (criterio === "estadoDePago") {
+        return a.pagadoProfesional - b.pagadoProfesional;
+      } else {
+        return 0;
+      }
+    });
+    setSesiones(sortedSesiones);
+  };
+
+  console.log(sesiones);
+
   return (
     <div className="card">
       <div>
@@ -24,10 +54,30 @@ export default function TodasLasAtenciones({ sesiones, onDelete }) {
         <table>
           <thead>
             <tr>
-              <th>Fecha</th>
-              <th>Usuario</th>
-              <th>Tipo de sesión</th>
-              <th>Estado de Pago</th>
+              <th>
+                Fecha{" "}
+                <a onClick={() => handleSort("fecha")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Usuario{" "}
+                <a onClick={() => handleSort("usuario")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Tipo de sesión{" "}
+                <a onClick={() => handleSort("tipoDeSesion")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Estado de Pago{" "}
+                <a onClick={() => handleSort("estadoDePago")}>
+                  <FaSort />
+                </a>
+              </th>
               <th>Acciones</th>
             </tr>
           </thead>

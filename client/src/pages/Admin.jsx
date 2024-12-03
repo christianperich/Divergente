@@ -1,6 +1,7 @@
 import MonthSelector from "../components/MonthSelector";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { FaSort } from "react-icons/fa";
 
 export default function Admin() {
   const [sesiones, setSesiones] = useState([]);
@@ -29,6 +30,27 @@ export default function Admin() {
   const handleDateChange = async (month, year) => {
     setMesActivo(month);
     setYearActivo(year);
+  };
+
+  const handleSort = (criterio) => {
+    const sortedSesiones = [...sesiones].sort((a, b) => {
+      if (criterio === "fecha") {
+        return new Date(a.fecha) - new Date(b.fecha);
+      } else if (criterio === "profesional") {
+        return a.profesional.nombre.localeCompare(b.profesional.nombre);
+      } else if (criterio === "usuario") {
+        return a.usuario.nombre.localeCompare(b.usuario.nombre);
+      } else if (criterio === "tipoDeSesion") {
+        return a.tipo.localeCompare(b.tipo);
+      } else if (criterio === "pagadoChris") {
+        return a.pagadoDivergente - b.pagadoDivergente;
+      } else if (criterio === "pagadoProfesional") {
+        return a.pagadoProfesional - b.pagadoProfesional;
+      } else {
+        return 0;
+      }
+    });
+    setSesiones(sortedSesiones);
   };
 
   const handlePagoADivergente = async (id, estaPagado) => {
@@ -82,12 +104,42 @@ export default function Admin() {
         <table>
           <thead>
             <tr>
-              <th>Fecha</th>
-              <th>Profesional</th>
-              <th>Usuario</th>
-              <th>Tipo de sesión</th>
-              <th>Pagado a Chris</th>
-              <th>Pagado a Prof.</th>
+              <th>
+                Fecha{" "}
+                <a onClick={() => handleSort("fecha")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Profesional{" "}
+                <a onClick={() => handleSort("profesional")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Usuario{" "}
+                <a onClick={() => handleSort("usuario")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Tipo de sesión{" "}
+                <a onClick={() => handleSort("tipoDeSesion")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Pagado a Chris{" "}
+                <a onClick={() => handleSort("pagadoChris")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Pagado a Prof.{" "}
+                <a onClick={() => handleSort("pagadoProfesional")}>
+                  <FaSort />
+                </a>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -95,7 +147,13 @@ export default function Admin() {
               <tr key={sesion._id}>
                 <td>{new Date(sesion.fecha).toISOString().split("T")[0]}</td>
                 <td>{sesion.profesional.nombre}</td>
-                <td>{sesion.usuario.nombre}</td>
+                <td>
+                  {
+                    <a href={`/user-info/${sesion.usuario._id}`}>
+                      {sesion.usuario.nombre}
+                    </a>
+                  }
+                </td>
                 <td>{sesion.tipo}</td>
                 <td>
                   {sesion.pagadoDivergente ? (

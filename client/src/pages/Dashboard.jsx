@@ -25,7 +25,6 @@ export default function Dashboard({ user }) {
           `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}`,
           tipodeSesionNombres
         );
-        console.log(response.data);
         setSesiones(response.data);
       } catch (err) {
         console.error("Error al obtener las sesiones:", err);
