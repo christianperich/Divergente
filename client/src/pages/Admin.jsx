@@ -2,6 +2,7 @@ import MonthSelector from "../components/MonthSelector";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaSort } from "react-icons/fa";
+import ResumenMensual from "../components/ResumenMensual";
 
 export default function Admin() {
   const [sesiones, setSesiones] = useState([]);
@@ -46,6 +47,8 @@ export default function Admin() {
         return a.pagadoDivergente - b.pagadoDivergente;
       } else if (criterio === "pagadoProfesional") {
         return a.pagadoProfesional - b.pagadoProfesional;
+      } else if (criterio === "boleta") {
+        return a.boleta - b.boleta;
       } else {
         return 0;
       }
@@ -129,6 +132,12 @@ export default function Admin() {
                 </a>
               </th>
               <th>
+                Boleta{" "}
+                <a onClick={() => handleSort("boleta")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
                 Pagado a Chris{" "}
                 <a onClick={() => handleSort("pagadoChris")}>
                   <FaSort />
@@ -155,6 +164,7 @@ export default function Admin() {
                   }
                 </td>
                 <td>{sesion.tipo}</td>
+                <td>{sesion.boleta ? "Si" : "No"}</td>
                 <td>
                   {sesion.pagadoDivergente ? (
                     <a
@@ -220,6 +230,8 @@ export default function Admin() {
           </tbody>
         </table>
       </div>
+
+      <ResumenMensual sesiones={sesiones} />
     </>
   );
 }

@@ -45,8 +45,6 @@ export default function TodasLasAtenciones({
     setSesiones(sortedSesiones);
   };
 
-  console.log(sesiones);
-
   return (
     <div className="card">
       <div>
