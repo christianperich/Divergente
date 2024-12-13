@@ -33,7 +33,9 @@ export default function Evaluaciones({ user }) {
           return;
         }
         const response = await axios.get(
-          `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`
+          `/api/sesiones/${user._id}?month=${
+            mesActivo - 1
+          }&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`
         );
 
         setSesiones(response.data);
@@ -45,8 +47,9 @@ export default function Evaluaciones({ user }) {
     fetchEvaluaciones();
   }, [user, mesActivo, yearActivo]);
 
-  const handleDateChange = (month, year) => {
-    setMesActivo(month);
+  const handleDateChange = (selectedMonthYear) => {
+    const [year, month] = selectedMonthYear.split("-").map(Number);
+    setMesActivo(month); // `month` está en formato 1-12
     setYearActivo(year);
   };
 
@@ -69,7 +72,7 @@ export default function Evaluaciones({ user }) {
       <UserInfo user={user} />
       <h1>Mis Evaluaciones</h1>
 
-      <MonthSelector onDateChange={handleDateChange} />
+      <MonthSelector onMonthYearChange={handleDateChange} />
 
       <TotalAtenciones
         sesiones={sesiones}

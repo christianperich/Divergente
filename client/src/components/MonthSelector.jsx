@@ -13,7 +13,6 @@ const MonthYearSelector = ({ onMonthYearChange }) => {
   }, [selectedMonthYear]);
 
   const handleMonthYearChange = (event) => {
-    console.log(event.target.value);
     const newMonthYear = event.target.value;
     setSelectedMonthYear(newMonthYear);
     if (onMonthYearChange) {

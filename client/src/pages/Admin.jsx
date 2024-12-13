@@ -27,20 +27,22 @@ export default function Admin() {
           return;
         }
         const response = await axios.get(
-          `/api/sesiones/?month=${mesActivo}&year=${yearActivo}`
+          `/api/sesiones?month=${mesActivo - 1}&year=${yearActivo}`
         );
-
         setSesiones(response.data);
       } catch (err) {
         console.error("Error al obtener las sesiones:", err);
       }
     };
+
     fetchSesiones();
   }, [mesActivo, yearActivo]);
 
-  const handleDateChange = async (month, year) => {
+  const handleDateChange = (selectedMonthYear) => {
+    const [year, month] = selectedMonthYear.split("-").map(Number);
     setMesActivo(month);
     setYearActivo(year);
+    console.log(month);
   };
 
   const handleSort = (criterio) => {
@@ -108,12 +110,10 @@ export default function Admin() {
 
   return (
     <>
-      <MonthSelector onDateChange={handleDateChange} />
+      <MonthSelector onMonthYearChange={handleDateChange} />
 
       <div className="card">
-        <h1>
-          Atenciones {mesActivo + 1}/{yearActivo}
-        </h1>
+        <h1>Atenciones del mes</h1>
         <table>
           <thead>
             <tr>
