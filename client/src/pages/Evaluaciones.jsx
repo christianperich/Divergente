@@ -8,9 +8,19 @@ import TodasLasAtenciones from "../components/TodasLasAtenciones";
 import TotalAtenciones from "../components/TotalAtenciones";
 
 export default function Evaluaciones({ user }) {
-  const [mesActivo, setMesActivo] = useState(new Date().getMonth());
-  const [yearActivo, setYearActivo] = useState(new Date().getFullYear());
   const [sesiones, setSesiones] = useState([]);
+  const [mesActivo, setMesActivo] = useState(() => {
+    const storedDate = localStorage.getItem("selectedMonthYear");
+    return storedDate
+      ? parseInt(storedDate.split("-")[1]) - 1
+      : new Date().getMonth();
+  });
+  const [yearActivo, setYearActivo] = useState(() => {
+    const storedDate = localStorage.getItem("selectedMonthYear");
+    return storedDate
+      ? parseInt(storedDate.split("-")[0])
+      : new Date().getFullYear();
+  });
 
   const tipoDeSesion = [{ nombre: "Evaluación" }];
   const tipoDeSesionNombre = "Evaluación";

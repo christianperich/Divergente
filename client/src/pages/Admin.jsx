@@ -6,8 +6,18 @@ import ResumenMensual from "../components/ResumenMensual";
 
 export default function Admin() {
   const [sesiones, setSesiones] = useState([]);
-  const [mesActivo, setMesActivo] = useState(new Date().getMonth());
-  const [yearActivo, setYearActivo] = useState(new Date().getFullYear());
+  const [mesActivo, setMesActivo] = useState(() => {
+    const storedDate = localStorage.getItem("selectedMonthYear");
+    return storedDate
+      ? parseInt(storedDate.split("-")[1]) - 1
+      : new Date().getMonth();
+  });
+  const [yearActivo, setYearActivo] = useState(() => {
+    const storedDate = localStorage.getItem("selectedMonthYear");
+    return storedDate
+      ? parseInt(storedDate.split("-")[0])
+      : new Date().getFullYear();
+  });
 
   useEffect(() => {
     const fetchSesiones = async () => {
