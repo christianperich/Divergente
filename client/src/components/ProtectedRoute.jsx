@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 
-const protectedRoute = ({ children }) => {
+const protectedRoute = ({
+  children,
+  allowedRoles = ["profesional", "admin"],
+}) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [user, setUser] = useState(null);
 
@@ -29,6 +32,10 @@ const protectedRoute = ({ children }) => {
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
+  }
+
+  if (!allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" />;
   }
 
   return <>{children && React.cloneElement(children, { user })}</>;

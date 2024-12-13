@@ -10,6 +10,7 @@ import PatientInfo from "./pages/PatientInfo";
 import Admin from "./pages/Admin";
 import Evaluaciones from "./pages/Evaluaciones";
 import NuevoUsuario from "./pages/NuevoUsuario";
+import Unauthorized from "./pages/Unauthorized";
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
           <Route
             path="/admin"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["admin"]}>
                 <Admin />
               </ProtectedRoute>
             }
@@ -57,6 +58,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

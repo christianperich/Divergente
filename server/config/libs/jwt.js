@@ -8,6 +8,7 @@ const generateToken = (user) => {
     id: user._id,
     username: user.nombre,
     email: user.email,
+    role: user.role,
   };
 
   const secret = process.env.TOKEN_SECRET;

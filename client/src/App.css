@@ -40,6 +40,12 @@ body {
   margin: 0.5em;
 }
 
+.card .centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .logo {
   width: 200px;
 }

@@ -10,7 +10,13 @@ export default function UserInfo({ user }) {
         <div className="user-links">
           <a href="/">Mis Atenciones</a>
           <a href="/evaluaciones">Mis Evaluaciones</a>
-          <a href="/nuevo-usuario">Nuevo Usuario</a>
+          {user.role === "admin" && (
+            <>
+              <a href="/nuevo-usuario">Nuevo Usuario</a>{" "}
+              <a href="/register">Nuevo Profesional</a>
+              <a href="/admin">Admin</a>
+            </>
+          )}
         </div>
       </div>
     </>

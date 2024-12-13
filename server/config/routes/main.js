@@ -155,6 +155,8 @@ router.get("/sesiones/", async (req, res) => {
 
   const monthNumber = parseInt(month);
 
+  console.log(yearNumber, monthNumber);
+
   if (isNaN(monthNumber) || monthNumber < 0 || monthNumber > 11) {
     return res.status(400).json({ error: "Mes no válido" });
   }

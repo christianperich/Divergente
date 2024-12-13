@@ -8,8 +8,18 @@ import MonthSelector from "../components/MonthSelector";
 
 export default function Dashboard({ user }) {
   const [sesiones, setSesiones] = useState([]);
-  const [mesActivo, setMesActivo] = useState(new Date().getMonth());
-  const [yearActivo, setYearActivo] = useState(new Date().getFullYear());
+  const [mesActivo, setMesActivo] = useState(() => {
+    const storedDate = localStorage.getItem("selectedMonthYear");
+    return storedDate
+      ? parseInt(storedDate.split("-")[1]) - 1
+      : new Date().getMonth();
+  });
+  const [yearActivo, setYearActivo] = useState(() => {
+    const storedDate = localStorage.getItem("selectedMonthYear");
+    return storedDate
+      ? parseInt(storedDate.split("-")[0])
+      : new Date().getFullYear();
+  });
 
   const tipoDeSesion = [{ nombre: "Atención" }, { nombre: "Aseo" }];
   const tipodeSesionNombres = "Aseo";
@@ -35,20 +45,25 @@ export default function Dashboard({ user }) {
 
   const handleNuevaAtencion = async () => {
     const response = await axios.get(
-      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+      `/api/sesiones/${user._id}?month=${
+        mesActivo + 1
+      }&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
     );
     setSesiones(response.data);
   };
 
   const handleDelete = async () => {
     const response = await axios.get(
-      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+      `/api/sesiones/${user._id}?month=${
+        mesActivo + 1
+      }&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
     );
     setSesiones(response.data);
   };
 
-  const handleDateChange = (month, year) => {
-    setMesActivo(month);
+  const handleDateChange = (selectedMonthYear) => {
+    const [year, month] = selectedMonthYear.split("-").map(Number);
+    setMesActivo(month - 1); // `month` está en formato 1-12
     setYearActivo(year);
   };
 
@@ -58,7 +73,7 @@ export default function Dashboard({ user }) {
       <h1>Mis Atenciones</h1>
       <div>
         <div>
-          <MonthSelector onDateChange={handleDateChange} />
+          <MonthSelector onMonthYearChange={handleDateChange} />
           <TotalAtenciones
             sesiones={sesiones}
             mesActivo={mesActivo}

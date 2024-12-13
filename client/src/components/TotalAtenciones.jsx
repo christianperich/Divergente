@@ -9,15 +9,13 @@ export default function TotalAtenciones({
   const [totalAtenciones, setTotalAtenciones] = useState(0);
   const [sinBoleta, setSinBoleta] = useState(0);
   const [conBoleta, setConBoleta] = useState(0);
-
   const [aseo, setAseo] = useState(0);
 
-  let valorSinBoletaAtencion = 20000;
-  let valorConBoletaAtencion = 24500;
+  const valorSinBoletaAtencion = 20000;
+  const valorConBoletaAtencion = 24500;
 
-  let ValorEvaluacionNino = 28000;
-  let ValorEvaluacionAdulto = 30000;
-
+  const ValorEvaluacionNino = 28000;
+  const ValorEvaluacionAdulto = 30000;
   const valorAseo = 11000;
 
   useEffect(() => {
