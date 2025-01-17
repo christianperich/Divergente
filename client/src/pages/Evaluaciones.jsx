@@ -12,7 +12,7 @@ export default function Evaluaciones({ user }) {
   const [mesActivo, setMesActivo] = useState(() => {
     const storedDate = localStorage.getItem("selectedMonthYear");
     return storedDate
-      ? parseInt(storedDate.split("-")[1]) - 1
+      ? parseInt(storedDate.split("-")[1])
       : new Date().getMonth();
   });
   const [yearActivo, setYearActivo] = useState(() => {

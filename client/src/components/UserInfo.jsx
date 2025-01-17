@@ -8,8 +8,15 @@ export default function UserInfo({ user }) {
         <img className="profile-img" src={profileImg} alt="" />
         <h2>{user.nombre}</h2>
         <div className="user-links">
-          <a href="/">Mis Atenciones</a>
-          <a href="/evaluaciones">Mis Evaluaciones</a>
+          <a href="/">Inicio</a>
+          {user.role === "admin" ||
+            (user.role === "profesional" && (
+              <>
+                <a href="/dashboard">Mis Atenciones</a>
+                <a href="/evaluaciones">Mis Evaluaciones</a>
+              </>
+            ))}
+
           {user.role === "admin" && (
             <>
               <a href="/nuevo-usuario">Nuevo Usuario</a>{" "}

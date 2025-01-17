@@ -22,7 +22,7 @@ export default function Login() {
       const response = await axios.post("api/login", user);
 
       if (response.status === 200) {
-        navigate("/");
+        navigate("/atenciones");
       }
     } catch (err) {
       setErrMsg("Usuario y/o contraseña incorrectos");

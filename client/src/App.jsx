@@ -11,6 +11,10 @@ import Admin from "./pages/Admin";
 import Evaluaciones from "./pages/Evaluaciones";
 import NuevoUsuario from "./pages/NuevoUsuario";
 import Unauthorized from "./pages/Unauthorized";
+import Landing from "./pages/Landing";
+import QuienesSomos from "./pages/QuienesSomos";
+import Profesionales from "./pages/Profesionales";
+import CursoOnline from "./pages/CursoOnline";
 
 function App() {
   return (
@@ -18,8 +22,12 @@ function App() {
       <Router>
         <Nav></Nav>
         <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/quienes-somos" element={<QuienesSomos />} />
+          <Route path="/profesionales" element={<Profesionales />} />
+          <Route path="/curso-online" element={<CursoOnline />} />
           <Route
-            path="/"
+            path="/atenciones"
             element={
               <ProtectedRoute>
                 <Dashboard />
@@ -60,7 +68,14 @@ function App() {
           />
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/register"
+            element={
+              <ProtectedRoute>
+                <Register />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </>

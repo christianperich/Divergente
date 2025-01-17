@@ -32,6 +32,10 @@ export default function Nav() {
         <a href="/">
           <img src={logo} alt="" className="logo" />
         </a>
+        <div className="menu-center">
+          <a href="/">Inicio</a>
+          <a href="/quienes-somos">Quiénes somos</a>
+        </div>
         <div className="menu">
           {isAuthenticated ? (
             <>

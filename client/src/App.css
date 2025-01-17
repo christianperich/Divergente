@@ -40,14 +40,29 @@ body {
   margin: 0.5em;
 }
 
+.card .card-info .text-xl p {
+  font-size: 1.1rem;
+  text-align: justify;
+  margin-left: 3rem;
+}
+
 .card .centered {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+.card .card-img {
+  width: 400px;
+  height: 400px;
+}
+
 .logo {
   width: 200px;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 button,
@@ -166,13 +181,170 @@ th {
   padding: 10px;
 }
 
-@media (max-width: 750px) {
+.fondo {
+  width: 100%;
+  position: relative;
+}
+
+.fondo-img {
+  width: 100%;
+  filter: hue-rotate(120deg) saturate(150%) contrast(1.2) brightness(0.6);
+}
+
+.fondo-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-shadow: #202020 1px 0 5px;
+  font-size: 3rem;
+}
+
+.fondo span {
+  color: rgb(255, 179, 0);
+}
+
+.menu-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+
+.icons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  background-color: rgb(35, 37, 43);
+  height: 10rem;
+  color: white;
+  text-align: center;
+}
+
+.icon-container {
+  color: white;
+  transition: all 0.3s;
+}
+
+.icon-container:hover {
+  color: #ff9100;
+}
+
+.icon {
+  font-size: 4rem;
+}
+
+.text-large-justified {
+  text-align: justify;
+  margin-top: 20px;
+}
+
+.galeria-imagenes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.galeria-imagenes img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.ubicacion {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.jornadas h2 {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.jornadas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.jornadas .relator {
+  width: 150px;
+  border-radius: 100%;
+}
+
+.jornadas .relator-nombre {
+  text-align: center;
+}
+
+.jornada-container {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  gap: 2rem; /* Espaciado entre los elementos */
+  width: 100%; /* Asegura que use el ancho completo */
+  height: auto; /* Ajusta el alto automáticamente */
+}
+
+.relatores {
+  flex: 1;
+  text-align: center;
+}
+
+ul {
+  flex: 2;
+  list-style: disc;
+}
+
+.jornadas li {
+  text-align: left;
+  margin-left: 400px;
+  list-style: none;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 1215px) {
+  .card .card-img {
+    width: 300px;
+    height: 300px;
+  }
+
+  .fondo-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .fondo-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 800px) {
   .card {
     max-width: 600px;
   }
 
   h3 {
     font-size: 1rem;
+  }
+
+  .fondo-title {
+    font-size: 1.5rem;
+  }
+
+  .card .card-info {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -188,6 +360,10 @@ th {
 
   nav {
     flex-direction: column;
+  }
+
+  .fondo-title {
+    font-size: 1rem;
   }
 }
 
