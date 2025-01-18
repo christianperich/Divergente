@@ -17,9 +17,10 @@ function CursoOnline() {
         </h1>
         <div style={{ textAlign: "center" }}>
           <img
+            className="imagen-curso"
             src={afiche}
             alt=""
-            style={{ width: "400px", marginBottom: "40px" }}
+            style={{ marginBottom: "40px" }}
           />
         </div>
         <h2>Competencia a desarrollar:</h2>
@@ -29,7 +30,7 @@ function CursoOnline() {
           autismo desde un enfoque de derechos
         </p>
         <h2 style={{ marginTop: "40px" }}>Aprendizajes esperados:</h2>
-        <ul style={{ marginBottom: "70px" }}>
+        <ul style={{ marginBottom: "70px", padding: "30px" }}>
           <li>
             Comprender los fundamentos teóricos del autismo y su impacto en la
             cognición y conducta.
@@ -54,13 +55,9 @@ function CursoOnline() {
         </ul>
         <div style={{ textAlign: "center", marginBottom: "70px" }}>
           <a
-            className="btn"
+            className="btn btn-big"
             href="https://drive.google.com/file/d/1D1kClXASL-aAE-ux7zfkDYwvOrp4if5m/view?usp=sharing"
             target="_blank"
-            style={{
-              padding: "30px 50px",
-              fontSize: "1.5rem",
-            }}
           >
             Ver el programa
           </a>
@@ -68,15 +65,8 @@ function CursoOnline() {
 
         <h2 style={{ marginTop: "40px" }}>Relatores:</h2>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "20px",
-            textAlign: "center",
-          }}
-        >
-          <div style={{ width: "600px" }}>
+        <div className="relatores-card">
+          <div>
             <img
               src={jose}
               alt="jose"
@@ -89,7 +79,7 @@ function CursoOnline() {
               de un joven dentro del espectro autista.
             </p>
           </div>
-          <div style={{ width: "600px" }}>
+          <div>
             <img
               src={arleen}
               alt="arleen"
@@ -103,19 +93,8 @@ function CursoOnline() {
               PALAA, Maternidad Autista e Infinitamente.
             </p>
           </div>
-        </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "20px",
-            textAlign: "center",
-            marginTop: "60px",
-            marginBottom: "100px",
-          }}
-        >
-          <div style={{ width: "600px" }}>
+          <div>
             <img
               src={ghilian}
               alt="ghilian"
@@ -128,7 +107,7 @@ function CursoOnline() {
               Autista. Diplomada en Intervención del Abuso Infantil.
             </p>
           </div>
-          <div style={{ width: "600px" }}>
+          <div>
             <img
               src={marjorie}
               alt="marjorie"
@@ -148,14 +127,7 @@ function CursoOnline() {
           jornadas individuales pueden hacerlo por un valor de $30.000 cada una.
         </p>
         <div style={{ textAlign: "center" }}>
-          <a
-            className="btn"
-            style={{
-              padding: "30px 50px",
-              fontSize: "1.5rem",
-            }}
-            href="/inscripcion"
-          >
+          <a className="btn btn-big" href="/inscripcion">
             Ir al formulario de inscripción
           </a>
         </div>

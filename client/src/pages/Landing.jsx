@@ -1,7 +1,6 @@
 import fondo from "../assets/img/fondo.jpg";
 import afiche_curso from "../assets/img/afiche-curso-online.png";
 import { FaPeopleGroup } from "react-icons/fa6";
-import { ImProfile } from "react-icons/im";
 
 export default function Landing() {
   return (
@@ -32,7 +31,7 @@ export default function Landing() {
           alignItems: "center",
         }}
       >
-        <img src={afiche_curso} alt="" style={{ width: "600px" }} />
+        <img className="imagen-curso" src={afiche_curso} alt="" />
         <a href="/curso-online" className="btn" style={{ marginTop: "20px" }}>
           Más información
         </a>
