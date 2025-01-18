@@ -127,7 +127,11 @@ function CursoOnline() {
           jornadas individuales pueden hacerlo por un valor de $30.000 cada una.
         </p>
         <div style={{ textAlign: "center" }}>
-          <a className="btn btn-big" href="/inscripcion">
+          <a
+            className="btn btn-big"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf8RTdwEzjj7a9Hu2WW3Jy_L36j9Nl_isFeJTkcPxBw99WlbA/viewform?usp=sharing"
+            target="_blank"
+          >
             Ir al formulario de inscripción
           </a>
         </div>
