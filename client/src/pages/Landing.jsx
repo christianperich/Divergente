@@ -9,7 +9,7 @@ export default function Landing() {
       <div className="fondo">
         <img className="fondo-img" src={fondo} alt="" />
         <h1 className="fondo-title">
-          Evaluaciones y atenciones en Espectro del{" "}
+          Evaluaciones y atenciones en{" "}
           <span className="remark">Espectro del Autismo</span> realizadas por un
           equipo multidisciplinario.
         </h1>
