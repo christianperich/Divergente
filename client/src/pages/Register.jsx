@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import UserInfo from "../components/UserInfo";
 
-export default function Register() {
+export default function Register({ user }) {
   const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
@@ -48,8 +48,9 @@ export default function Register() {
 
   return (
     <>
+      <UserInfo user={user} />
       <div className="card">
-        <h1>Registrarse</h1>
+        <h1>Registrar un nuevo profesional</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-info">
             <label htmlFor="username">Nombre: </label>

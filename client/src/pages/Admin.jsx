@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaSort } from "react-icons/fa";
 import ResumenMensual from "../components/ResumenMensual";
+import UserInfo from "../components/UserInfo";
 
 export default function Admin() {
   const [sesiones, setSesiones] = useState([]);

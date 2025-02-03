@@ -2,15 +2,25 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MonthSelector from "../components/MonthSelector";
-import TodasLasAtenciones from "../components/TodasLasAtenciones";
-import UserInfo from "../components/UserInfo";
+import { FaSort } from "react-icons/fa";
 
-export default function PatientInfo({ user }) {
+export default function PatientInfo() {
   const [nombre, setNombre] = useState("");
   const [apoderado, setApoderado] = useState("");
   const [sesiones, setSesiones] = useState([]);
-  const [mesActivo, setMesActivo] = useState(new Date().getMonth());
-  const [yearActivo, setYearActivo] = useState(new Date().getFullYear());
+
+  const [mesActivo, setMesActivo] = useState(() => {
+    const storedDate = localStorage.getItem("selectedMonthYear");
+    return storedDate
+      ? parseInt(storedDate.split("-")[1]) - 1
+      : new Date().getMonth();
+  });
+  const [yearActivo, setYearActivo] = useState(() => {
+    const storedDate = localStorage.getItem("selectedMonthYear");
+    return storedDate
+      ? parseInt(storedDate.split("-")[0])
+      : new Date().getFullYear();
+  });
 
   const { id } = useParams();
 
@@ -48,29 +58,50 @@ export default function PatientInfo({ user }) {
     fetchData();
   }, [id, mesActivo, yearActivo]);
 
-  const handleDateChange = async (month, year) => {
-    setMesActivo(month);
+  const handleDateChange = (selectedMonthYear) => {
+    const [year, month] = selectedMonthYear.split("-").map(Number);
+    setMesActivo(month - 1); // `month` está en formato 1-12
     setYearActivo(year);
-    const fetchSesiones = await axios.get(
-      `/api/user-info/${id}?month=${mesActivo}&year=${yearActivo}`
-    );
+  };
 
-    setSesiones(fetchSesiones.data);
+  const handleSort = (criterio) => {
+    const sortedSesiones = [...sesiones].sort((a, b) => {
+      if (criterio === "fecha") {
+        return new Date(a.fecha) - new Date(b.fecha);
+      } else if (criterio === "profesional") {
+        return a.profesional.nombre.localeCompare(b.profesional.nombre);
+      } else {
+        return 0;
+      }
+    });
+    setSesiones(sortedSesiones);
   };
 
   return (
     <>
-      <UserInfo user={user} />
-      <h1>{nombre}</h1>
-      <MonthSelector onDateChange={handleDateChange} />
+      <div className="card">
+        <h1>{nombre}</h1>
+        <h3>Resumen de las atenciones en el mes seleccionado</h3>
+      </div>
 
+      <MonthSelector onMonthYearChange={handleDateChange} />
       <div className="card">
         <table>
           <thead>
             <tr>
-              <th>Fecha</th>
+              <th>
+                Fecha{" "}
+                <a onClick={() => handleSort("fecha")}>
+                  <FaSort />
+                </a>
+              </th>
               <th>Usuario</th>
-              <th>Profesional</th>
+              <th>
+                Profesional{" "}
+                <a onClick={() => handleSort("profesional")}>
+                  <FaSort />
+                </a>
+              </th>
               <th>Tipo de atención</th>
               <th>Pagado a Divergente</th>
               <th>Pagado a Profesional</th>
@@ -78,9 +109,13 @@ export default function PatientInfo({ user }) {
           </thead>
           <tbody>
             {sesiones.map((sesion) => (
-              <tr>
+              <tr key={sesion._id}>
                 <td>{new Date(sesion.fecha).toISOString().split("T")[0]}</td>
-                <td>{sesion.usuario.nombre}</td>
+                <td>
+                  <a href={"/user-info/" + sesion.usuario._id}>
+                    {sesion.usuario.nombre}
+                  </a>
+                </td>
                 <td>{sesion.profesional.nombre}</td>
                 <td>{sesion.tipo}</td>
                 <td>{sesion.pagadoDivergente ? "Si" : "No"}</td>
@@ -90,10 +125,11 @@ export default function PatientInfo({ user }) {
           </tbody>
         </table>
       </div>
-
       <div className="card">
         <h3>Total a pagar</h3>
+        <p>(Este monto solo considera las atenciones.)</p>
         <h2>${totalAtenciones.toLocaleString()}</h2>
+
         <h3>Persona que paga:</h3>
         <h2>{apoderado}</h2>
       </div>

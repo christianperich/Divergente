@@ -82,7 +82,6 @@ router.get("/user-info", authRequired, async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
-
     return res.status(200).json(user);
   } catch (err) {
     console.error("Error al obtener la información del usuario", err);

@@ -34,20 +34,21 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/user-info/:id"
-            element={
-              <ProtectedRoute allowedRoles={["profesional", "admin"]}>
-                <PatientInfo />
-              </ProtectedRoute>
-            }
-          />
+
           <Route
             path="/admin"
             element={
               <ProtectedRoute allowedRoles={["admin"]}>
                 <Admin />
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user-info/:id"
+            element={
+              //<ProtectedRoute allowedRoles={["admin"]}>
+              <PatientInfo />
+              //</ProtectedRoute>
             }
           />
           <Route
