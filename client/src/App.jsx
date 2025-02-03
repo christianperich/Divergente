@@ -15,7 +15,6 @@ import Landing from "./pages/Landing";
 import QuienesSomos from "./pages/QuienesSomos";
 import Profesionales from "./pages/Profesionales";
 import CursoOnline from "./pages/CursoOnline";
-import Inscripción from "./pages/Inscripción";
 
 function App() {
   return (
@@ -27,7 +26,6 @@ function App() {
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/profesionales" element={<Profesionales />} />
           <Route path="/curso-online" element={<CursoOnline />} />
-          <Route path="/inscripcion" element={<Inscripción />} />
           <Route
             path="/atenciones"
             element={
@@ -39,7 +37,7 @@ function App() {
           <Route
             path="/user-info/:id"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["profesional", "admin"]}>
                 <PatientInfo />
               </ProtectedRoute>
             }

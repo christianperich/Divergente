@@ -12,7 +12,7 @@ export default function TotalAtenciones({
   const [aseo, setAseo] = useState(0);
 
   const valorSinBoletaAtencion = 20000;
-  const valorConBoletaAtencion = 24500;
+  const valorConBoletaAtencion = 25000;
 
   const ValorEvaluacionNino = 28000;
   const ValorEvaluacionAdulto = 30000;
