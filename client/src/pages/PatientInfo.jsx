@@ -25,7 +25,7 @@ export default function PatientInfo() {
   const { id } = useParams();
 
   const valorSinBoleta = 28000;
-  const valorConBoleta = 32500;
+  const valorConBoleta = 33000;
 
   const atencionesConBoleta = sesiones.filter(
     (sesion) => sesion.boleta === true && sesion.tipo === "Atención"
