@@ -309,8 +309,6 @@ router.put("/sesiones/:id", async (req, res) => {
   const { id } = req.params;
   const sesionActualizada = req.body;
 
-  console.log(sesionActualizada);
-
   try {
     await Sesion.findOneAndUpdate({ _id: id }, sesionActualizada);
   } catch (err) {
