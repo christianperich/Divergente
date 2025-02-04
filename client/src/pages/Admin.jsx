@@ -4,6 +4,7 @@ import axios from "axios";
 import { FaSort } from "react-icons/fa";
 import ResumenMensual from "../components/ResumenMensual";
 import { MdOutlineDeleteForever } from "react-icons/md";
+import ResumenMensualProfesionales from "../components/ResumenMensualProfesionales";
 
 export default function Admin() {
   const [sesiones, setSesiones] = useState([]);
@@ -135,7 +136,7 @@ export default function Admin() {
     <>
       <MonthSelector onMonthYearChange={handleDateChange} />
 
-      <div className="card">
+      <section className="card">
         <h1>Atenciones del mes</h1>
         <table>
           <thead>
@@ -265,9 +266,11 @@ export default function Admin() {
             ))}
           </tbody>
         </table>
-      </div>
+      </section>
 
       <ResumenMensual sesiones={sesiones} />
+
+      <ResumenMensualProfesionales sesiones={sesiones} />
     </>
   );
 }
