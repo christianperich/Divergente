@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaSort } from "react-icons/fa";
 import ResumenMensual from "../components/ResumenMensual";
-import UserInfo from "../components/UserInfo";
+import { MdOutlineDeleteForever } from "react-icons/md";
 
 export default function Admin() {
   const [sesiones, setSesiones] = useState([]);
@@ -43,7 +43,6 @@ export default function Admin() {
     const [year, month] = selectedMonthYear.split("-").map(Number);
     setMesActivo(month);
     setYearActivo(year);
-    console.log(month);
   };
 
   const handleSort = (criterio) => {
@@ -109,6 +108,29 @@ export default function Admin() {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "¿Estás seguro de que deseas eliminar esta sesión?"
+    );
+
+    if (confirmDelete) {
+      try {
+        await axios.delete(`/api/sesiones/${id}`);
+        setSesiones((prevSesiones) =>
+          prevSesiones.filter((sesion) => sesion._id !== id)
+        );
+      } catch (err) {
+        console.error("Error al eliminar la sesión:", err);
+      }
+    }
+  };
+
+  const handleUpdate = (id) => {
+    console.log(id);
+    const sesionToUpdate = sesiones.find((sesion) => sesion._id === id);
+    setSesionEdit(sesionToUpdate);
+  };
+
   return (
     <>
       <MonthSelector onMonthYearChange={handleDateChange} />
@@ -160,6 +182,7 @@ export default function Admin() {
                   <FaSort />
                 </a>
               </th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -234,7 +257,9 @@ export default function Admin() {
                   <a
                     className="action"
                     onClick={() => handleDelete(sesion._id)}
-                  ></a>
+                  >
+                    <MdOutlineDeleteForever />
+                  </a>
                 </td>
               </tr>
             ))}

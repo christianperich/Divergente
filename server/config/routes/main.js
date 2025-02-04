@@ -228,7 +228,7 @@ router.get("/sesiones/:id", async (req, res) => {
   return res.status(200).json(sesiones);
 });
 
-router.put("/sesiones/:id", async (req, res) => {
+/*router.put("/sesiones/:id", async (req, res) => {
   const { id } = req.params;
   const { pagadoProfesional, pagadoDivergente } = req.body;
 
@@ -240,11 +240,16 @@ router.put("/sesiones/:id", async (req, res) => {
   return res
     .status(200)
     .json("Los datos de la sesión se han guardado exitosamente.");
-});
+});*/
 
 router.get("/usuarios", async (req, res) => {
   const usuarios = await Usuario.find();
   return res.status(200).json(usuarios);
+});
+
+router.get("/profesionales", async (req, res) => {
+  const profesionales = await Profesional.find();
+  return res.status(200).json(profesionales);
 });
 
 router.get("/user-data/:id", async (req, res) => {
@@ -298,6 +303,23 @@ router.delete("/sesiones/:id", async (req, res) => {
   return res
     .status(200)
     .json({ message: "La sesión fue eliminada correctamente" });
+});
+
+router.put("/sesiones/:id", async (req, res) => {
+  const { id } = req.params;
+  const sesionActualizada = req.body;
+
+  console.log(sesionActualizada);
+
+  try {
+    await Sesion.findOneAndUpdate({ _id: id }, sesionActualizada);
+  } catch (err) {
+    console.error("Error al actualizar la sesión:", err);
+  }
+
+  return res
+    .status(200)
+    .json({ message: "La sesión fue actualizada correctamente" });
 });
 
 export default router;

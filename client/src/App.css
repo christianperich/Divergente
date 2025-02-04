@@ -126,8 +126,14 @@ td {
   font-size: 1.2rem;
 }
 
+.action {
+  margin: 10px;
+  transition: all 0.3s;
+}
+
 .action:hover {
   cursor: pointer;
+  color: rgb(51, 197, 255);
 }
 
 .paciente {
@@ -337,6 +343,31 @@ ul {
 
 .relatores-card p {
   width: 400px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 600px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 @media (max-width: 1215px) {
