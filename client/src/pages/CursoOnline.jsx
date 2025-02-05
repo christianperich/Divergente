@@ -1,14 +1,14 @@
 import afiche from "../assets/img/afiche-curso-online.png";
 import jose from "../assets/img/jose.jpg";
 import arleen from "../assets/img/arleen.png";
-import marjorie from "../assets/img/marjorie.jpeg";
+import marjorie from "../assets/img/marjorie.jpg";
 import ghilian from "../assets/img/ghilian.png";
 import btnPagar from "../assets/img/btn-flow-blanco.png";
 
 function CursoOnline() {
   return (
     <>
-      <div className="card" style={{ textAlign: "justify" }}>
+      <div className="card curso-online" style={{ textAlign: "justify" }}>
         <h3>Curso Online:</h3>
         <h1>
           Estrategias de abordaje de las necesidades educativas y
@@ -56,7 +56,7 @@ function CursoOnline() {
         <div style={{ textAlign: "center", marginBottom: "70px" }}>
           <a
             className="btn btn-big"
-            href="https://drive.google.com/file/d/1D1kClXASL-aAE-ux7zfkDYwvOrp4if5m/view?usp=sharing"
+            href="https://drive.google.com/file/d/1gRHGUakmG0JI0uyvDImC3fPfTn7Vm5Xy/view?usp=sharing"
             target="_blank"
           >
             Ver el programa
@@ -76,7 +76,8 @@ function CursoOnline() {
             <p>
               Licenciado en educación diferencial, activista por los derechos de
               las personas autistas, fundador del Colectivo Autismo Chile, padre
-              de un joven dentro del espectro autista.
+              de un joven dentro del espectro autista. Co-Fundador del Centro
+              Divergente.
             </p>
           </div>
           <div>
@@ -111,21 +112,31 @@ function CursoOnline() {
             <img
               src={marjorie}
               alt="marjorie"
-              style={{ width: "200px", borderRadius: "100%" }}
+              style={{
+                width: "200px",
+                height: "200px",
+                borderRadius: "100%",
+                objectFit: "cover",
+              }}
             />
             <h2>Marjorie Barrera</h2>
             <p>
               Educadora Diferencial, Diplomada en inclusión educativa y madre de
-              una joven dentro del espectro autista.
+              una joven dentro del espectro autista. Co-Fundadora del Centro
+              Divergente.
             </p>
           </div>
         </div>
-        <h1>Valor</h1>
-        <p style={{ marginBottom: "70px" }}>
-          El costo total del curso, que incluye las cuatro jornadas, es de
-          $100.000 por persona. Alternativamente, quienes deseen participar en
-          jornadas individuales pueden hacerlo por un valor de $30.000 cada una.
-        </p>
+        <div className="valor">
+          <h1>Valor</h1>
+          <p style={{ marginBottom: "70px" }}>
+            El costo total del curso, que incluye las cuatro jornadas, es de
+            $100.000 por persona. Alternativamente, quienes deseen participar en
+            jornadas individuales pueden hacerlo por un valor de $30.000 cada
+            una.
+          </p>
+        </div>
+
         <div style={{ textAlign: "center" }}>
           <a
             className="btn btn-big"

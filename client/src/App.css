@@ -370,6 +370,22 @@ ul {
   gap: 10px;
 }
 
+.curso-online h1,
+.curso-online h2,
+.curso-online h3 {
+  text-align: left;
+  color: #f38900;
+}
+
+.curso-online .valor {
+  margin-top: 100px;
+}
+
+.relatores-card h2 {
+  text-align: center;
+  margin-top: 30px;
+}
+
 @media (max-width: 1215px) {
   .card .card-img {
     width: 300px;
