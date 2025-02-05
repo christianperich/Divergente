@@ -10,6 +10,7 @@ export default function TotalAtenciones({
   const [sinBoleta, setSinBoleta] = useState(0);
   const [conBoleta, setConBoleta] = useState(0);
   const [aseo, setAseo] = useState(0);
+  const [administracion, setAdministracion] = useState(0);
 
   const valorSinBoletaAtencion = 20000;
   const valorConBoletaAtencion = 25000;
@@ -17,11 +18,13 @@ export default function TotalAtenciones({
   const ValorEvaluacionNino = 28000;
   const ValorEvaluacionAdulto = 30000;
   const valorAseo = 11000;
+  const valorAdministracion = 80000;
 
   useEffect(() => {
     let contadorSinBoleta = 0;
     let contadorConBoleta = 0;
     let contadorAseo = 0;
+    let contadorAdministracion = 0;
 
     sesiones.forEach((sesion) => {
       const fecha = new Date(sesion.fecha);
@@ -56,20 +59,31 @@ export default function TotalAtenciones({
       ) {
         contadorAseo++;
       }
+
+      if (
+        sesion.tipo === "Administración" &&
+        monthSesion === mesActivo &&
+        yearSesion === yearActivo
+      ) {
+        contadorAdministracion++;
+      }
     });
 
     // Actualizar los estados
     setSinBoleta(contadorSinBoleta);
     setConBoleta(contadorConBoleta);
     setAseo(contadorAseo);
+    setAdministracion(contadorAdministracion);
 
-    const total =
+    let total =
       tipoDeSesion[0].nombre === "Atención"
         ? contadorSinBoleta * valorSinBoletaAtencion +
           contadorConBoleta * valorConBoletaAtencion +
           contadorAseo * valorAseo
         : contadorSinBoleta * ValorEvaluacionNino +
           contadorConBoleta * ValorEvaluacionAdulto;
+
+    total += contadorAdministracion * valorAdministracion;
 
     setTotalAtenciones(total);
   }, [sesiones, mesActivo, yearActivo, tipoDeSesion]);

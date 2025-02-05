@@ -188,10 +188,6 @@ router.get("/sesiones/:id", async (req, res) => {
   const { id } = req.params;
   let { month, year, tipoDeSesion } = req.query;
 
-  if (tipoDeSesion !== "Evaluación") {
-    tipoDeSesion = { $in: ["Aseo", "Atención"] };
-  }
-
   const yearNumber = parseInt(year);
 
   const monthNumber = parseInt(month);
@@ -214,33 +210,24 @@ router.get("/sesiones/:id", async (req, res) => {
     .endOf("month")
     .toDate();
 
+  const sesion =
+    tipoDeSesion === "Evaluación"
+      ? { $in: ["Evaluación"] }
+      : { $in: ["Aseo", "Atención", "Administración"] };
+
   const sesiones = await Sesion.find({
     profesional: id,
     fecha: {
       $gte: startOfMonth,
       $lte: endOfMonth,
     },
-    tipo: tipoDeSesion,
+    tipo: sesion,
   })
     .sort({ fecha: 1 })
     .populate("usuario profesional");
 
   return res.status(200).json(sesiones);
 });
-
-/*router.put("/sesiones/:id", async (req, res) => {
-  const { id } = req.params;
-  const { pagadoProfesional, pagadoDivergente } = req.body;
-
-  await Sesion.findOneAndUpdate(
-    { _id: id },
-    { pagadoProfesional, pagadoDivergente }
-  );
-
-  return res
-    .status(200)
-    .json("Los datos de la sesión se han guardado exitosamente.");
-});*/
 
 router.get("/usuarios", async (req, res) => {
   const usuarios = await Usuario.find();

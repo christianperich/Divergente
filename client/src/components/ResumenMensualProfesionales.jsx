@@ -3,7 +3,16 @@ import { useState, useEffect } from "react";
 const calcularMontosPorProfesional = (sesiones) => {
   const montos = sesiones.reduce((acc, sesion) => {
     const profesionalId = sesion.profesional._id;
-    const monto = sesion.boleta ? 25000 : 20000;
+    let monto = 0;
+
+    // Determinar el monto según el tipo de sesión
+    if (sesion.tipo === "Atención") {
+      monto = sesion.boleta ? 25000 : 20000;
+    } else if (sesion.tipo === "Aseo") {
+      monto = 11000;
+    } else if (sesion.tipo === "Administración") {
+      monto = 80000;
+    }
 
     if (!acc[profesionalId]) {
       acc[profesionalId] = {

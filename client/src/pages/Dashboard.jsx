@@ -21,7 +21,11 @@ export default function Dashboard({ user }) {
       : new Date().getFullYear();
   });
 
-  const tipoDeSesion = [{ nombre: "Atención" }, { nombre: "Aseo" }];
+  const tipoDeSesion = [
+    { nombre: "Atención" },
+    { nombre: "Aseo" },
+    { nombre: "Administración" },
+  ];
   const tipodeSesionNombres = "Aseo";
 
   useEffect(() => {
@@ -41,7 +45,7 @@ export default function Dashboard({ user }) {
       }
     };
     fetchSesiones();
-  }, [user, mesActivo, yearActivo]);
+  }, [user, mesActivo, yearActivo, sesiones]);
 
   const handleNuevaAtencion = async () => {
     const response = await axios.get(

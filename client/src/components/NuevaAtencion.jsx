@@ -51,13 +51,14 @@ export default function NuevaAtencion({ user, onNuevaAtencion, tipoDeSesion }) {
     try {
       const response = await axios.post("/api/agregar-sesion", nuevaSesion);
       setMsg(response.data);
-      onNuevaAtencion();
       setNombre("");
       setFecha("");
       setSesion("");
     } catch (err) {
       console.error("Error al ingresar la sesión:", err);
     }
+
+    onNuevaAtencion();
   };
 
   return (
