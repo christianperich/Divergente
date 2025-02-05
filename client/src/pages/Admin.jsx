@@ -40,6 +40,7 @@ export default function Admin() {
     fetchSesiones();
   }, [mesActivo, yearActivo, adminVisualization]);
 
+  console.log(sesiones);
   const handleDateChange = (selectedMonthYear) => {
     const [year, month] = selectedMonthYear.split("-").map(Number);
     setMesActivo(month);
