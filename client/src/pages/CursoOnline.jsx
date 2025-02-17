@@ -1,9 +1,11 @@
 import afiche from "../assets/img/afiche-curso-online.png";
 import jose from "../assets/img/jose.jpg";
-import arleen from "../assets/img/arleen.png";
+import arleen from "../assets/img/arleen.jpeg";
 import marjorie from "../assets/img/marjorie.jpg";
 import ghilian from "../assets/img/ghilian.png";
 import btnPagar from "../assets/img/btn-flow-blanco.png";
+import PayPalButton from "../components/PayPalButton";
+import FlowButton from "../components/FlowButton";
 
 function CursoOnline() {
   return (
@@ -84,7 +86,12 @@ function CursoOnline() {
             <img
               src={arleen}
               alt="arleen"
-              style={{ width: "200px", borderRadius: "100%" }}
+              style={{
+                width: "200px",
+                height: "200px",
+                borderRadius: "100%",
+                objectFit: "cover",
+              }}
             />
             <h2>Arleen Sorkin</h2>
             <p>
@@ -155,93 +162,7 @@ function CursoOnline() {
 
         <br />
 
-        <div
-          className="card payments"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "20px",
-          }}
-        >
-          <h3 style={{ alignItems: "center" }}>
-            Seleccioné todas las clases: $100.000
-          </h3>
-          <a
-            href="https://www.flow.cl/btn.php?token=e982c861213756fb0d35761730ee380710f23f0f"
-            target="_blank"
-          >
-            <img src={btnPagar} alt="" />
-          </a>
-        </div>
-
-        <div
-          className="card payments"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "20px",
-          }}
-        >
-          <h3 style={{ alignItems: "center" }}>
-            Seleccioné solo 3 clases: $90.000
-          </h3>
-          <a
-            href="https://www.flow.cl/btn.php?token=w1e5fd73da55e3a2f1639f867e7b321ffac7733f"
-            target="_blank"
-          >
-            <img src={btnPagar} alt="" />
-          </a>
-        </div>
-
-        <div
-          className="card payments"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "20px",
-          }}
-        >
-          <h3 style={{ alignItems: "center" }}>
-            Seleccioné solo 2 clases: $60.000
-          </h3>
-          <a
-            href="https://www.flow.cl/btn.php?token=cb3d870b703f4aaf0775bd0003f6c918d6f2fc1a"
-            target="_blank"
-          >
-            <img src={btnPagar} alt="" />
-          </a>
-        </div>
-
-        <div
-          className="card payments"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "20px",
-          }}
-        >
-          <h3 style={{ alignItems: "center" }}>
-            Seleccioné solo 1 clase: $30.000
-          </h3>
-          <a
-            href="https://www.flow.cl/btn.php?token=s829d9163ddbed8834beff8236418d574b461cbd"
-            target="_blank"
-          >
-            <img src={btnPagar} alt="" />
-          </a>
-        </div>
+        <FlowButton />
 
         <p style={{ marginTop: "70px" }}>
           Te esperamos! Para más información, escríbenos a
@@ -250,6 +171,11 @@ function CursoOnline() {
             +56 9 5928 2351
           </a>
         </p>
+      </div>
+
+      <div className="card">
+        <h1>¿No eres de Chile? Puedes pagar con PayPal</h1>
+        <PayPalButton />
       </div>
     </>
   );

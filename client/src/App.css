@@ -386,6 +386,10 @@ ul {
   margin-top: 30px;
 }
 
+.paypal-button-container button {
+  max-width: none !important;
+}
+
 @media (max-width: 1215px) {
   .card .card-img {
     width: 300px;
