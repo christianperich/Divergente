@@ -19,6 +19,6 @@ app.use(cookieParser());
 app.use(cors());
 app.use("/", mainRouter);
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log(`Servidor corriendo en http://localhost:${process.env.PORT}`);
 });
