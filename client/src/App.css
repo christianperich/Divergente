@@ -390,6 +390,23 @@ ul {
   max-width: none !important;
 }
 
+.bloque-clases {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.bloque-clases .clase {
+  width: 500px;
+  object-fit: cover;
+}
+
 @media (max-width: 1215px) {
   .card .card-img {
     width: 300px;
@@ -398,6 +415,10 @@ ul {
 
   .fondo-title {
     font-size: 2.5rem;
+  }
+
+  .bloque-clases .clase {
+    width: 400px;
   }
 }
 
@@ -498,6 +519,10 @@ ul {
   }
 
   .relatores-card p {
+    width: 300px;
+  }
+
+  .bloque-clases .clase {
     width: 300px;
   }
 }

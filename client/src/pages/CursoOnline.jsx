@@ -2,6 +2,10 @@ import afiche from "../assets/img/afiche-curso-online.png";
 import jose from "../assets/img/jose.jpg";
 import arleen from "../assets/img/arleen.jpeg";
 import marjorie from "../assets/img/marjorie.jpg";
+import clase1 from "../assets/img/1.png";
+import clase2 from "../assets/img/2.png";
+import clase3 from "../assets/img/3.png";
+import clase4 from "../assets/img/4.png";
 import ghilian from "../assets/img/ghilian.png";
 import btnPagar from "../assets/img/btn-flow-blanco.png";
 import PayPalButton from "../components/PayPalButton";
@@ -55,15 +59,18 @@ function CursoOnline() {
             aprendizaje inclusivo.{" "}
           </li>
         </ul>
-        <div style={{ textAlign: "center", marginBottom: "70px" }}>
-          <a
-            className="btn btn-big"
-            href="https://drive.google.com/file/d/1gRHGUakmG0JI0uyvDImC3fPfTn7Vm5Xy/view?usp=sharing"
-            target="_blank"
-          >
-            Ver el programa
-          </a>
-        </div>
+
+        <h1>PRIMER BLOQUE</h1>
+        <section className="bloque-clases">
+          <img src={clase1} alt="Clase 1" className="clase" />
+          <img src={clase2} alt="Clase 2" className="clase" />
+        </section>
+
+        <h1>SEGUNDO BLOQUE</h1>
+        <section className="bloque-clases">
+          <img src={clase3} alt="Clase 3" className="clase" />
+          <img src={clase4} alt="Clase 4" className="clase" />
+        </section>
 
         <h2 style={{ marginTop: "40px" }}>Relatores:</h2>
 
@@ -140,7 +147,8 @@ function CursoOnline() {
             El costo total del curso, que incluye las cuatro jornadas, es de
             $100.000 por persona. Alternativamente, quienes deseen participar en
             jornadas individuales pueden hacerlo por un valor de $30.000 cada
-            una.
+            una. Si sólo deseas participar en el segundo bloque, el valor es de
+            $50.000.
           </p>
         </div>
 
@@ -165,17 +173,13 @@ function CursoOnline() {
         <FlowButton />
 
         <p style={{ marginTop: "70px" }}>
-          Te esperamos! Para más información, escríbenos a
+          ¿No eres de Chile o necesitas más información? Escríbenos al WhatsApp
           <a href="http://wa.me/56959282351" target="_blank">
             {" "}
             +56 9 5928 2351
-          </a>
+          </a>{" "}
+          y te ayudamos.
         </p>
-      </div>
-
-      <div className="card">
-        <h1>¿No eres de Chile? Puedes pagar con PayPal</h1>
-        <PayPalButton />
       </div>
     </>
   );
