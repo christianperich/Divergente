@@ -107,7 +107,7 @@ function CoregulacionYEducacionEmocional() {
         <div style={{ textAlign: "center" }}>
           <a
             className="btn"
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf8RTdwEzjj7a9Hu2WW3Jy_L36j9Nl_isFeJTkcPxBw99WlbA/viewform?usp=sharing"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfznB_Vcj4_MVgVdY5qREDNRXZ5Qv1FPXmvCXbTqM0x5AKutg/viewform?usp=sharing"
             target="_blank"
           >
             Ir al formulario de inscripción
