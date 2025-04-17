@@ -14,7 +14,8 @@ import Unauthorized from "./pages/Unauthorized";
 import Landing from "./pages/Landing";
 import QuienesSomos from "./pages/QuienesSomos";
 import Profesionales from "./pages/Profesionales";
-import CursoOnline from "./pages/CursoOnline";
+import CursoOnline from "./pages/Cursos/CursoOnline";
+import CoregulacionYEducacionEmocional from "./pages/Cursos/CoregulacionYEducacionEmocional";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/profesionales" element={<Profesionales />} />
           <Route path="/curso-online" element={<CursoOnline />} />
+          <Route
+            path="/curso-online/coregulacion-y-educacion-emocional"
+            element={<CoregulacionYEducacionEmocional />}
+          />
           <Route
             path="/atenciones"
             element={

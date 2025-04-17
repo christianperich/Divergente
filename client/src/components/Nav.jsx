@@ -1,4 +1,3 @@
-import logo from "../assets/img/divergente.png";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +8,12 @@ export default function Nav() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/user-info");
+        const response = await axios.get("/api/user-info", {
+          withCredentials: true,
+        });
         setIsAuthenticated(true);
       } catch (err) {
-        "Error al intentar verificar si el usuario está autenticado", err;
+        setIsAuthenticated(false);
       }
     };
 
@@ -30,7 +31,7 @@ export default function Nav() {
     <>
       <nav>
         <a href="/">
-          <img src={logo} alt="" className="logo" />
+          <img src="/img/divergente.png" alt="" className="logo" />
         </a>
         <div className="menu-center">
           <a href="/">Inicio</a>

@@ -1,5 +1,4 @@
 import "../assets/css/userInfo.css";
-import profileImg from "../assets/img/user-icon.png";
 
 export default function UserInfo({ user }) {
   if (!user) {
@@ -9,7 +8,7 @@ export default function UserInfo({ user }) {
   return (
     <>
       <div className="user-info">
-        <img className="profile-img" src={profileImg} alt="" />
+        <img className="profile-img" src="/img/user-icon.png" alt="" />
         <h2>{user.nombre}</h2>
         <div className="user-links">
           <a href="/">Inicio</a>

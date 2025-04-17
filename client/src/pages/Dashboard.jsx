@@ -5,6 +5,7 @@ import TotalAtenciones from "../components/TotalAtenciones";
 import TodasLasAtenciones from "../components/TodasLasAtenciones";
 import NuevaAtencion from "../components/NuevaAtencion";
 import MonthSelector from "../components/MonthSelector";
+import TodasLasAtencionesCards from "../components/TodasLasAtencionesCards";
 
 export default function Dashboard({ user }) {
   const [sesiones, setSesiones] = useState([]);
@@ -84,12 +85,13 @@ export default function Dashboard({ user }) {
             yearActivo={yearActivo}
             tipoDeSesion={tipoDeSesion}
           />
-          <TodasLasAtenciones
+          <TodasLasAtencionesCards
             user={user}
             sesiones={sesiones}
             onDelete={handleDelete}
             mesActivo={mesActivo}
           />
+
           <NuevaAtencion
             user={user}
             onNuevaAtencion={handleNuevaAtencion}

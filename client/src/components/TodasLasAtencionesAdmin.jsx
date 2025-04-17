@@ -169,7 +169,14 @@ function TodasLasAtencionesAdmin({
         <tbody>
           {sesiones.map((sesion) => (
             <tr key={sesion._id}>
-              <td>{new Date(sesion.fecha).toISOString().split("T")[0]}</td>
+              <td>
+                {new Date(sesion.fecha)
+                  .toISOString()
+                  .split("T")[0]
+                  .split("-")
+                  .reverse()
+                  .join("/")}
+              </td>
               <td>{sesion.profesional.nombre}</td>
               <td>
                 {

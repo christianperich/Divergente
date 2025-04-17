@@ -1,16 +1,3 @@
-import afiche from "../assets/img/afiche-curso-online.png";
-import jose from "../assets/img/jose.jpg";
-import arleen from "../assets/img/arleen.jpeg";
-import marjorie from "../assets/img/marjorie.jpg";
-import clase1 from "../assets/img/1.png";
-import clase2 from "../assets/img/2.png";
-import clase3 from "../assets/img/3.png";
-import clase4 from "../assets/img/4.png";
-import ghilian from "../assets/img/ghilian.png";
-import btnPagar from "../assets/img/btn-flow-blanco.png";
-import PayPalButton from "../components/PayPalButton";
-import FlowButton from "../components/FlowButton";
-
 function CursoOnline() {
   return (
     <>

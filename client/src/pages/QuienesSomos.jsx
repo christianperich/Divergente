@@ -1,6 +1,3 @@
-import centro1 from "../assets/img/centro1.jpg";
-import centro2 from "../assets/img/centro2.jpg";
-
 function QuienesSomos() {
   return (
     <>
@@ -36,8 +33,8 @@ function QuienesSomos() {
         <h2>Contáctanos al +56 9 5928 2351</h2>
 
         <div className="galeria-imagenes">
-          <img src={centro1} alt="" />
-          <img src={centro2} alt="" />
+          <img src="/img/centro1.jpg" alt="" />
+          <img src="/img/centro2.jpg" alt="" />
         </div>
 
         <div className="ubicacion">

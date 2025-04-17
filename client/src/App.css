@@ -326,10 +326,6 @@ ul {
   font-size: 1.5rem;
 }
 
-.imagen-curso {
-  width: 600px;
-}
-
 .relatores-card {
   display: flex;
   flex-direction: row;
@@ -343,6 +339,18 @@ ul {
 
 .relatores-card p {
   width: 400px;
+}
+
+.relator-card {
+  background-color: rgba(155, 223, 185, 0.556);
+  border: #202020 1px solid;
+  border-radius: 10px;
+  padding: 20px;
+  height: 500px;
+}
+
+.relator-card img {
+  box-shadow: #434040 3px 3px 5px;
 }
 
 .modal-overlay {
@@ -378,7 +386,7 @@ ul {
 }
 
 .curso-online .valor {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .relatores-card h2 {
@@ -407,6 +415,63 @@ ul {
   object-fit: cover;
 }
 
+.atencionesCard {
+  align-items: center;
+  text-align: center;
+}
+
+.atencionCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+
+  background-color: rgb(255, 255, 255);
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: #d4d0d0 3px 3px 5px;
+}
+
+select {
+  width: 300px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  color: rgb(0, 0, 0);
+  box-shadow: #999797 3px 3px 5px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.imagen-curso {
+  width: 80%;
+  max-width: 500px;
+}
+
+.datos-transferencia {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.3rem;
+  background-color: rgb(234, 234, 236);
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+
+  margin-top: 50px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: #928f8f 3px 3px 5px;
+}
+
 @media (max-width: 1215px) {
   .card .card-img {
     width: 300px;
@@ -425,6 +490,10 @@ ul {
 @media (max-width: 1000px) {
   .fondo-title {
     font-size: 2rem;
+  }
+
+  h1 {
+    font-size: 1.7rem;
   }
 }
 
@@ -446,10 +515,6 @@ ul {
     justify-content: center;
     align-items: center;
   }
-
-  .imagen-curso {
-    width: 400px;
-  }
 }
 
 @media (max-width: 650px) {
@@ -460,6 +525,10 @@ ul {
 
   h3 {
     font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
   }
 
   nav {
@@ -474,6 +543,10 @@ ul {
     font-size: 1rem;
     padding: 20px 30px;
   }
+
+  .datos-transferencia {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 500px) {
@@ -482,8 +555,13 @@ ul {
     padding: 15px;
   }
 
+  .card td {
+    width: 80px;
+    font-size: 0.8rem;
+  }
+
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
   h3 {
@@ -512,10 +590,6 @@ ul {
   .user-links a {
     width: 100%;
     text-align: center;
-  }
-
-  .imagen-curso {
-    width: 300px;
   }
 
   .relatores-card p {
