@@ -46,6 +46,15 @@ function CoregulacionYEducacionEmocional() {
           <img src="/img/clase2.png" alt="Clase 2" className="clase" />
         </section>
 
+        <section className="bloque-clases">
+          <a
+            href="https://drive.google.com/file/d/1gzvX0n6j26idcCYGjFnv203MMW3_rT5y/view?usp=sharing"
+            className="btn"
+          >
+            Ver el programa completo
+          </a>
+        </section>
+        <h1>Relatores</h1>
         <div className="relatores-card">
           <div className="relator-card">
             <img
@@ -93,7 +102,7 @@ function CoregulacionYEducacionEmocional() {
               }}
             >
               {" "}
-              $50.000 por persona.
+              $40.000 por persona.
             </span>{" "}
             Alternativamente, quienes deseen participar en jornadas individuales
             pueden hacerlo por un valor de $25.000 cada una.
