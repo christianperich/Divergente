@@ -38,7 +38,7 @@ export default function Landing() {
       >
         <img
           className="imagen-curso"
-          src="/img/curso-corregulacion.jpg"
+          src="/img/corregulacion.jpg"
           alt="curso-online"
           style={{ boxShadow: "0 0 10px rgba(0,0,0,0.5)" }}
         />

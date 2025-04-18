@@ -10,7 +10,7 @@ function CoregulacionYEducacionEmocional() {
         <div style={{ textAlign: "center" }}>
           <img
             className="imagen-curso"
-            src="/img/curso-corregulacion.jpg"
+            src="/img/corregulacion.jpg"
             alt=""
             style={{ marginBottom: "40px" }}
           />
