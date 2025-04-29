@@ -1,3 +1,6 @@
+import PayPalButton from "../../components/PayPalButton";
+import FlowButton from "../../components/FlowButton";
+
 function CoregulacionYEducacionEmocional() {
   return (
     <>
@@ -128,6 +131,26 @@ function CoregulacionYEducacionEmocional() {
           Christian Adrián Perich Lara <br /> RUT: 15.309.850-6 <br /> Banco:
           BCI <br /> Cuenta Vista 777015309850 <br />{" "}
           fundaciondivergente@gmail.com
+        </div>
+
+        <div style={{ textAlign: "center" }}>
+          <h1 style={{ marginTop: "40px", textAlign: "center" }}>
+            Opciones de pago con tarjetas de crédito.
+          </h1>
+
+          <h2
+            style={{ marginTop: "40px", textAlign: "center", color: "black" }}
+          >
+            Pagar con Flow
+          </h2>
+          <FlowButton />
+
+          <h2
+            style={{ marginTop: "40px", textAlign: "center", color: "black" }}
+          >
+            Pagar con PayPal
+          </h2>
+          <PayPalButton />
         </div>
       </div>
     </>

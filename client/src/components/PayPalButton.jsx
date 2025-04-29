@@ -1,38 +1,30 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const PayPalButton = () => {
+  const paypalRef = useRef(null);
+
   useEffect(() => {
+    // Cargar el script solo una vez
     const script = document.createElement("script");
     script.src =
       "https://www.paypal.com/sdk/js?client-id=BAAyayE3X6NVR-OUPuFZGFTD1oCSwsCrC5sfEshF4308QxYpBwb-baTNzN510qSvV9DkQtZrsJZkBePFDU&components=hosted-buttons&disable-funding=venmo&currency=USD";
     script.async = true;
     script.crossOrigin = "anonymous";
+
     script.onload = () => {
       if (window.paypal) {
         window.paypal
           .HostedButtons({
-            hostedButtonId: "NVNV7J6M7CLLC",
+            hostedButtonId: "GSYRS7YFTXVMQ",
           })
-          .render("#paypal-container-NVNV7J6M7CLLC");
+          .render(paypalRef.current);
       }
     };
+
     document.body.appendChild(script);
   }, []);
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        className="paypal-button-container"
-        id="paypal-container-NVNV7J6M7CLLC"
-      ></div>
-    </div>
-  );
+  return <div className="paypal-button-container" ref={paypalRef} />;
 };
 
 export default PayPalButton;

@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import btnPagar from "../assets/img/btn-flow-blanco.png";
+import btnPagar from "/img/btn-flow-blanco.png";
 
 function FlowButton() {
-  const [valor, setValor] = useState(50000);
+  const [valor, setValor] = useState(40000);
   const [link, setLink] = useState(
-    "https://www.flow.cl/btn.php?token=zef26f407cee2f16c20f4512c92a0084991c0539"
+    "https://www.flow.cl/btn.php?token=x4e683c287f99e2f15b4737f20e86b449b5c6738"
   );
 
   const options = [
-    { value: "1", label: "Segundo Bloque - $50.000" },
-    { value: "2", label: "1 clase - $30.000" },
+    { value: "1", label: "Todas las clases - $40.000" },
+    { value: "2", label: "1 clase - $25.000" },
   ];
 
   const handleChange = (e) => {
     console.log(e);
     if (e.value === "1") {
       setLink(
-        "https://www.flow.cl/btn.php?token=zef26f407cee2f16c20f4512c92a0084991c0539"
+        "https://www.flow.cl/btn.php?token=x4e683c287f99e2f15b4737f20e86b449b5c6738"
       );
-      setValor(50000);
+      setValor(40000);
     } else if (e.value === "2") {
       setLink(
         "https://www.flow.cl/btn.php?token=s829d9163ddbed8834beff8236418d574b461cbd"
       );
-      setValor(30000);
+      setValor(25000);
     }
   };
 

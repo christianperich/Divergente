@@ -394,6 +394,12 @@ ul {
   margin-top: 30px;
 }
 
+.paypal-button-container {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+
 .paypal-button-container button {
   max-width: none !important;
 }
