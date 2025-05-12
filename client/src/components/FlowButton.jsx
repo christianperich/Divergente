@@ -22,7 +22,7 @@ function FlowButton() {
       setValor(40000);
     } else if (e.value === "2") {
       setLink(
-        "https://www.flow.cl/btn.php?token=s829d9163ddbed8834beff8236418d574b461cbd"
+        "https://www.flow.cl/btn.php?token=g60090eb570d0c91d32ce5fca726db66f85dce01"
       );
       setValor(25000);
     }
