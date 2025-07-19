@@ -7,16 +7,18 @@ function ResumenMensual({ sesiones }) {
   const [totalAdministracion, setTotalAdministracion] = useState(0);
 
   let contadorAtenciones = 0;
-  let contadorEvaluaciones = 0;
   let contadorAseo = 0;
   let contadorAdministracion = 0;
+  const evaluadosUnicos = new Set();
 
   useEffect(() => {
     sesiones.forEach((sesion) => {
       if (sesion.tipo === "Atención") {
         contadorAtenciones += 1;
       } else if (sesion.tipo === "Evaluación") {
-        contadorEvaluaciones += 1;
+        if (sesion.usuario.nombre) {
+          evaluadosUnicos.add(sesion.usuario.nombre); // o el campo correcto de ID único
+        }
       } else if (sesion.tipo === "Aseo") {
         contadorAseo += 1;
       } else if (sesion.tipo === "Administración") {
@@ -24,7 +26,7 @@ function ResumenMensual({ sesiones }) {
       }
     });
     setTotalAtenciones(contadorAtenciones);
-    setTotalEvaluaciones(contadorEvaluaciones);
+    setTotalEvaluaciones(evaluadosUnicos.size);
     setTotalAseo(contadorAseo);
     setTotalAdministracion(contadorAdministracion);
   }, [sesiones]);
@@ -35,8 +37,6 @@ function ResumenMensual({ sesiones }) {
   const montoAdministracion = totalAdministracion * 80000;
   const totalMes =
     montoAtenciones + montoEvaluaciones - montoAseo - montoAdministracion;
-
-  console.log(totalAdministracion);
 
   return (
     <>

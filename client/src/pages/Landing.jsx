@@ -1,8 +1,39 @@
 import { FaPeopleGroup } from "react-icons/fa6";
+import UserInfo from "../components/UserInfo";
+import { useEffect, useState } from "react";
 
 export default function Landing() {
+  const [user, setUser] = useState(null); // guarda la info del usuario
+  const [loading, setLoading] = useState(true); // para mostrar "Cargando..." si quieres
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await fetch("/api/user-info", {
+          credentials: "include", // ¡Importante para enviar cookies de sesión!
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setUser(data);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Error al obtener el usuario:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUser();
+  }, []);
+
   return (
     <>
+      {loading ? <h1>Cargando...</h1> : user ? <UserInfo user={user} /> : null}
+
       <div className="fondo">
         <img className="fondo-img" src="/img/fondo.jpg" alt="" />
         <h1 className="fondo-title">

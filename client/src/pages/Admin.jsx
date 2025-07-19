@@ -4,8 +4,9 @@ import axios from "axios";
 import ResumenMensual from "../components/ResumenMensual";
 import ResumenMensualProfesionales from "../components/ResumenMensualProfesionales";
 import TodasLasAtencionesAdmin from "../components/TodasLasAtencionesAdmin";
+import UserInfo from "../components/UserInfo";
 
-export default function Admin() {
+export default function Admin({ user }) {
   const [sesiones, setSesiones] = useState([]);
   const [mesActivo, setMesActivo] = useState(() => {
     const storedDate = localStorage.getItem("selectedMonthYear");
@@ -40,7 +41,6 @@ export default function Admin() {
     fetchSesiones();
   }, [mesActivo, yearActivo, adminVisualization]);
 
-  console.log(sesiones);
   const handleDateChange = (selectedMonthYear) => {
     const [year, month] = selectedMonthYear.split("-").map(Number);
     setMesActivo(month);
@@ -57,6 +57,8 @@ export default function Admin() {
 
   return (
     <>
+      <UserInfo user={user} />
+
       <MonthSelector onMonthYearChange={handleDateChange} />
 
       <TodasLasAtencionesAdmin
