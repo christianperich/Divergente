@@ -140,6 +140,12 @@ function TodasLasAtencionesAdmin({
               </a>
             </th>
             <th>
+              Apoderado{" "}
+              <a onClick={() => handleSort("apoderado")}>
+                <FaSort />
+              </a>
+            </th>
+            <th>
               Tipo de sesión{" "}
               <a onClick={() => handleSort("tipoDeSesion")}>
                 <FaSort />
@@ -185,6 +191,7 @@ function TodasLasAtencionesAdmin({
                   </a>
                 }
               </td>
+              <td>{sesion.usuario.apoderado}</td>
               <td>{sesion.tipo}</td>
               <td>{sesion.boleta ? "Si" : "No"}</td>
               <td>
