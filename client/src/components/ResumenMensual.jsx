@@ -34,7 +34,7 @@ function ResumenMensual({ sesiones }) {
   const montoAtenciones = totalAtenciones * 8000;
   const montoEvaluaciones = totalEvaluaciones * 70000;
   const montoAseo = totalAseo * 11000;
-  const montoAdministracion = totalAdministracion * 80000;
+  const montoAdministracion = totalAdministracion * 88000;
   const totalMes =
     montoAtenciones + montoEvaluaciones - montoAseo - montoAdministracion;
 

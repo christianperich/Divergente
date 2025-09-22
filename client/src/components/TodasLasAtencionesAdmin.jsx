@@ -29,6 +29,8 @@ function TodasLasAtencionesAdmin({
         return a.profesional.nombre.localeCompare(b.profesional.nombre);
       } else if (criterio === "usuario") {
         return a.usuario.nombre.localeCompare(b.usuario.nombre);
+      } else if (criterio === "apoderado") {
+        return a.usuario.apoderado.localeCompare(b.usuario.apoderado);
       } else if (criterio === "tipoDeSesion") {
         return a.tipo.localeCompare(b.tipo);
       } else if (criterio === "pagadoChris") {
