@@ -18,7 +18,7 @@ export default function TotalAtenciones({
   const ValorEvaluacionNino = 28000;
   const ValorEvaluacionAdulto = 30000;
   const valorAseo = 11000;
-  const valorAdministracion = 80000;
+  const valorAdministracion = 88000;
 
   useEffect(() => {
     let contadorSinBoleta = 0;
