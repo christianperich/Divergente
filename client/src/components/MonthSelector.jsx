@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 
-const MonthYearSelector = ({ onMonthYearChange }) => {
+const MonthYearSelector = ({ onMonthYearChange, value: valueProp }) => {
   const [selectedMonthYear, setSelectedMonthYear] = useState(() => {
-    // Recuperar el mes y año almacenados o usar el mes y año actual
     const storedMonthYear = localStorage.getItem("selectedMonthYear");
     return storedMonthYear || new Date().toISOString().slice(0, 7); // Formato: "YYYY-MM"
   });
 
+  const displayValue = valueProp ?? selectedMonthYear;
+
   useEffect(() => {
-    // Guardar el mes y año seleccionados en el almacenamiento local
-    localStorage.setItem("selectedMonthYear", selectedMonthYear);
-  }, [selectedMonthYear]);
+    localStorage.setItem("selectedMonthYear", displayValue);
+  }, [displayValue]);
+
+  useEffect(() => {
+    if (valueProp !== undefined) {
+      setSelectedMonthYear(valueProp);
+    }
+  }, [valueProp]);
 
   const handleMonthYearChange = (event) => {
     const newMonthYear = event.target.value;
@@ -27,7 +33,7 @@ const MonthYearSelector = ({ onMonthYearChange }) => {
         <input
           id="month-year-input"
           type="month"
-          value={selectedMonthYear}
+          value={displayValue}
           onChange={handleMonthYearChange}
         />
       </div>

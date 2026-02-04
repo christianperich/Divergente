@@ -57,7 +57,7 @@ function TodasLasAtencionesAdmin({
         prevSesiones.map((sesion) =>
           sesion._id === id
             ? { ...sesion, pagadoDivergente: updatedPago }
-            : sesion
+            : sesion,
         );
 
       updateSesiones(updatedSesiones);
@@ -77,7 +77,7 @@ function TodasLasAtencionesAdmin({
         prevSesiones.map((sesion) =>
           sesion._id === id
             ? { ...sesion, pagadoProfesional: updatedPago }
-            : sesion
+            : sesion,
         );
 
       updateSesiones(updatedSesiones);
@@ -88,7 +88,7 @@ function TodasLasAtencionesAdmin({
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
-      "¿Estás seguro de que deseas eliminar esta sesión?"
+      "¿Estás seguro de que deseas eliminar esta sesión?",
     );
 
     if (confirmDelete) {
@@ -120,142 +120,156 @@ function TodasLasAtencionesAdmin({
   return (
     <section className="card">
       <h1>Atenciones del mes</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>
-              Fecha{" "}
-              <a onClick={() => handleSort("fecha")}>
-                <FaSort />
-              </a>
-            </th>
-            <th>
-              Profesional{" "}
-              <a onClick={() => handleSort("profesional")}>
-                <FaSort />
-              </a>
-            </th>
-            <th>
-              Usuario{" "}
-              <a onClick={() => handleSort("usuario")}>
-                <FaSort />
-              </a>
-            </th>
-            <th>
-              Apoderado{" "}
-              <a onClick={() => handleSort("apoderado")}>
-                <FaSort />
-              </a>
-            </th>
-            <th>
-              Tipo de sesión{" "}
-              <a onClick={() => handleSort("tipoDeSesion")}>
-                <FaSort />
-              </a>
-            </th>
-            <th>
-              Boleta{" "}
-              <a onClick={() => handleSort("boleta")}>
-                <FaSort />
-              </a>
-            </th>
-            <th>
-              Pagado a Chris{" "}
-              <a onClick={() => handleSort("pagadoChris")}>
-                <FaSort />
-              </a>
-            </th>
-            <th>
-              Pagado a Prof.{" "}
-              <a onClick={() => handleSort("pagadoProfesional")}>
-                <FaSort />
-              </a>
-            </th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sesiones.map((sesion) => (
-            <tr key={sesion._id}>
-              <td>
-                {new Date(sesion.fecha)
-                  .toISOString()
-                  .split("T")[0]
-                  .split("-")
-                  .reverse()
-                  .join("/")}
-              </td>
-              <td>{sesion.profesional.nombre}</td>
-              <td>
-                {
-                  <a href={`/user-info/${sesion.usuario._id}`}>
-                    {sesion.usuario.nombre}
-                  </a>
-                }
-              </td>
-              <td>{sesion.usuario.apoderado}</td>
-              <td>{sesion.tipo}</td>
-              <td>{sesion.boleta ? "Si" : "No"}</td>
-              <td>
-                {sesion.pagadoDivergente ? (
-                  <a
-                    className="btn btn-success"
-                    onClick={() =>
-                      handlePagoADivergente(sesion._id, sesion.pagadoDivergente)
-                    }
-                  >
-                    Pagado
-                  </a>
-                ) : (
-                  <a
-                    className="btn btn-warning"
-                    onClick={() =>
-                      handlePagoADivergente(sesion._id, sesion.pagadoDivergente)
-                    }
-                  >
-                    Pendiente
-                  </a>
-                )}
-              </td>
-              <td>
-                {sesion.pagadoProfesional ? (
-                  <a
-                    className="btn btn-success"
-                    onClick={() =>
-                      handlePagoAProfesional(
-                        sesion._id,
-                        sesion.pagadoProfesional
-                      )
-                    }
-                  >
-                    Pagado
-                  </a>
-                ) : (
-                  <a
-                    className="btn btn-warning"
-                    onClick={() =>
-                      handlePagoAProfesional(
-                        sesion._id,
-                        sesion.pagadoProfesional
-                      )
-                    }
-                  >
-                    Pendiente
-                  </a>
-                )}
-              </td>
-              <td className="actions">
-                <a className="action" onClick={() => handleDelete(sesion._id)}>
-                  <MdOutlineDeleteForever />
+      <div className="admin-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Fecha{" "}
+                <a onClick={() => handleSort("fecha")}>
+                  <FaSort />
                 </a>
-                <a className="action" onClick={() => handleUpdate(sesion._id)}>
-                  <AiOutlineEdit />
+              </th>
+              <th>
+                Profesional{" "}
+                <a onClick={() => handleSort("profesional")}>
+                  <FaSort />
                 </a>
-              </td>
+              </th>
+              <th>
+                Usuario{" "}
+                <a onClick={() => handleSort("usuario")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Apoderado{" "}
+                <a onClick={() => handleSort("apoderado")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Tipo de sesión{" "}
+                <a onClick={() => handleSort("tipoDeSesion")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Boleta{" "}
+                <a onClick={() => handleSort("boleta")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Pagado a Chris{" "}
+                <a onClick={() => handleSort("pagadoChris")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>
+                Pagado a Prof.{" "}
+                <a onClick={() => handleSort("pagadoProfesional")}>
+                  <FaSort />
+                </a>
+              </th>
+              <th>Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {sesiones.map((sesion) => (
+              <tr key={sesion._id}>
+                <td>
+                  {new Date(sesion.fecha)
+                    .toISOString()
+                    .split("T")[0]
+                    .split("-")
+                    .reverse()
+                    .join("/")}
+                </td>
+                <td>{sesion.profesional.nombre}</td>
+                <td>
+                  {
+                    <a href={`/user-info/${sesion.usuario._id}`}>
+                      {sesion.usuario.nombre}
+                    </a>
+                  }
+                </td>
+                <td>{sesion.usuario.apoderado}</td>
+                <td>{sesion.tipo}</td>
+                <td>{sesion.boleta ? "Si" : "No"}</td>
+                <td>
+                  {sesion.pagadoDivergente ? (
+                    <a
+                      className="btn btn-success"
+                      onClick={() =>
+                        handlePagoADivergente(
+                          sesion._id,
+                          sesion.pagadoDivergente,
+                        )
+                      }
+                    >
+                      Pagado
+                    </a>
+                  ) : (
+                    <a
+                      className="btn btn-warning"
+                      onClick={() =>
+                        handlePagoADivergente(
+                          sesion._id,
+                          sesion.pagadoDivergente,
+                        )
+                      }
+                    >
+                      Pendiente
+                    </a>
+                  )}
+                </td>
+                <td>
+                  {sesion.pagadoProfesional ? (
+                    <a
+                      className="btn btn-success"
+                      onClick={() =>
+                        handlePagoAProfesional(
+                          sesion._id,
+                          sesion.pagadoProfesional,
+                        )
+                      }
+                    >
+                      Pagado
+                    </a>
+                  ) : (
+                    <a
+                      className="btn btn-warning"
+                      onClick={() =>
+                        handlePagoAProfesional(
+                          sesion._id,
+                          sesion.pagadoProfesional,
+                        )
+                      }
+                    >
+                      Pendiente
+                    </a>
+                  )}
+                </td>
+                <td className="actions">
+                  <a
+                    className="action"
+                    onClick={() => handleDelete(sesion._id)}
+                  >
+                    <MdOutlineDeleteForever />
+                  </a>
+                  <a
+                    className="action"
+                    onClick={() => handleUpdate(sesion._id)}
+                  >
+                    <AiOutlineEdit />
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
         <UpdateSesionForm
           sesionToUpdate={sesionToUpdate}

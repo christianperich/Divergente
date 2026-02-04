@@ -12,19 +12,37 @@ export default function TotalAtenciones({
   const [aseo, setAseo] = useState(0);
   const [administracion, setAdministracion] = useState(0);
 
-  const valorSinBoletaAtencion = 20000;
-  const valorConBoletaAtencion = 25000;
+  // Tarifas 2025 y anteriores
+  const tarifas2025 = {
+    valorSinBoletaAtencion: 20000,
+    valorConBoletaAtencion: 25000,
+    valorEvaluacionNino: 28000,
+    valorEvaluacionAdulto: 30000,
+    valorAseo: 11000,
+    valorAdministracion: 88000,
+  };
 
-  const ValorEvaluacionNino = 28000;
-  const ValorEvaluacionAdulto = 30000;
-  const valorAseo = 11000;
-  const valorAdministracion = 88000;
+  // Tarifas 2026 (reajuste)
+  const tarifas2026 = {
+    valorSinBoletaAtencion: 21000, // Ajustar según reajuste 2026
+    valorConBoletaAtencion: 26000,
+    valorEvaluacionNino: 28000,
+    valorEvaluacionAdulto: 30000,
+    valorAseo: 11000,
+    valorAdministracion: 88000,
+  };
+
+  // Tarifas 2026 aplican desde marzo 2026 (mes índice 2)
+  const usarTarifas2026 =
+    yearActivo > 2026 || (yearActivo === 2026 && mesActivo >= 2);
+  const tarifas = usarTarifas2026 ? tarifas2026 : tarifas2025;
 
   useEffect(() => {
     let contadorSinBoleta = 0;
     let contadorConBoleta = 0;
     let contadorAseo = 0;
     let contadorAdministracion = 0;
+    let descontarConTarifaDiferenciada = 0;
 
     sesiones.forEach((sesion) => {
       const fecha = new Date(sesion.fecha);
@@ -33,12 +51,20 @@ export default function TotalAtenciones({
         Date.UTC(
           fecha.getUTCFullYear(),
           fecha.getUTCMonth(),
-          fecha.getUTCDate()
-        )
+          fecha.getUTCDate(),
+        ),
       );
 
       const yearSesion = fechaUTC.getUTCFullYear();
       const monthSesion = fechaUTC.getUTCMonth();
+
+      if (sesion.usuario.tarifaDiferenciada && sesion.usuario.boleta) {
+        descontarConTarifaDiferenciada +=
+          tarifas.valorConBoletaAtencion - sesion.usuario.montoProfesional;
+      } else if (sesion.usuario.tarifaDiferenciada && !sesion.usuario.boleta) {
+        descontarConTarifaDiferenciada +=
+          tarifas.valorSinBoletaAtencion - sesion.usuario.montoProfesional;
+      }
 
       if (
         sesion.tipo === tipoDeSesion[0].nombre &&
@@ -77,13 +103,15 @@ export default function TotalAtenciones({
 
     let total =
       tipoDeSesion[0].nombre === "Atención"
-        ? contadorSinBoleta * valorSinBoletaAtencion +
-          contadorConBoleta * valorConBoletaAtencion +
-          contadorAseo * valorAseo
-        : contadorSinBoleta * ValorEvaluacionNino +
-          contadorConBoleta * ValorEvaluacionAdulto;
+        ? contadorSinBoleta * tarifas.valorSinBoletaAtencion +
+          contadorConBoleta * tarifas.valorConBoletaAtencion +
+          contadorAseo * tarifas.valorAseo
+        : contadorSinBoleta * tarifas.valorEvaluacionNino +
+          contadorConBoleta * tarifas.valorEvaluacionAdulto;
 
-    total += contadorAdministracion * valorAdministracion;
+    total +=
+      contadorAdministracion * tarifas.valorAdministracion -
+      descontarConTarifaDiferenciada;
 
     setTotalAtenciones(total);
   }, [sesiones, mesActivo, yearActivo, tipoDeSesion]);

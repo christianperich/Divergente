@@ -34,7 +34,7 @@ function TodasLasAtencionesCards({ sesiones: initialSesiones, onDelete }) {
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
-      "¿Estás seguro de que deseas eliminar esta sesión?"
+      "¿Estás seguro de que deseas eliminar esta sesión?",
     );
     if (!confirmDelete) return;
     try {
@@ -45,66 +45,88 @@ function TodasLasAtencionesCards({ sesiones: initialSesiones, onDelete }) {
     }
   };
 
+  const getTipoColor = (tipo) => {
+    switch (tipo) {
+      case "Atención":
+        return "#3498db";
+      case "Evaluación":
+        return "#9b59b6";
+      case "Aseo":
+        return "#2ecc71";
+      case "Administración":
+        return "#f1c40f";
+      default:
+        return "#3498db";
+    }
+  };
+
   return (
-    <>
-      <div className="atencionesCard">
+    <div className="atencionesCard-compact">
+      <div className="compact-header">
+        <h3>Atenciones realizadas ({sesiones.length})</h3>
         <select
           name="sort"
           id="sort"
           onChange={(e) => handleSort(e.target.value)}
+          className="compact-sort"
         >
           <option value="">Ordenar por...</option>
           <option value="fecha">Ordenar por fecha</option>
           <option value="usuario">Ordenar por usuario</option>
         </select>
-        {sesiones.map((sesion) => (
-          <div key={sesion._id}>
-            <div className="atencionCard">
-              <p
-                style={{
-                  backgroundColor: "rgb(226, 117, 38)",
-                  width: "100%",
-                  color: "white",
-                  marginBottom: "7px",
-                }}
-              >
-                {sesion.fecha.split("T")[0].split("-").reverse().join("/")} -{" "}
-                <strong>{sesion.usuario.nombre}</strong>
-              </p>
+      </div>
+
+      <div className="atencionCard-list">
+        {sesiones.length === 0 ? (
+          <div className="no-sesiones">No hay atenciones registradas</div>
+        ) : (
+          sesiones.map((sesion) => (
+            <div key={sesion._id} className="atencionCard-row">
               <div
-                style={{
-                  width: "80%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "10px",
-                }}
+                className="tipo-badge"
+                style={{ backgroundColor: getTipoColor(sesion.tipo) }}
+                title={sesion.tipo}
               >
-                <div>
-                  <p>Tipo de sesión: {sesion.tipo}</p>
-                  <p>
-                    Estado de pago:{" "}
-                    {sesion.pagadoProfesional ? (
-                      <span style={{ color: "rgb(10, 161, 8)" }}>Pagado</span>
-                    ) : (
-                      <span style={{ color: "rgb(255, 119, 0)" }}>
-                        Pendiente
-                      </span>
-                    )}
-                  </p>
-                  <p>Con boleta: {sesion.boleta ? "Sí" : "No"}</p>
+                {sesion.tipo.charAt(0)}
+              </div>
+
+              <div className="row-info">
+                <div className="row-main">
+                  <span className="fecha">
+                    {sesion.fecha.split("T")[0].split("-").reverse().join("/")}
+                  </span>
+                  <span className="usuario">{sesion.usuario.nombre}</span>
+                  <span className="tipo-text">{sesion.tipo}</span>
                 </div>
-                <div>
-                  <a onClick={() => handleDelete(sesion._id)}>Eliminar</a>
-                  <br />
-                  <a href="">Editar</a>
+
+                <div className="row-status">
+                  <span
+                    className={`status-badge ${
+                      sesion.pagadoProfesional ? "paid" : "pending"
+                    }`}
+                  >
+                    {sesion.pagadoProfesional ? "✓ Pagado" : "○ Pendiente"}
+                  </span>
+                  <span
+                    className={`boleta-badge ${sesion.boleta ? "yes" : "no"}`}
+                  >
+                    {sesion.boleta ? "Boleta" : "Sin boleta"}
+                  </span>
                 </div>
               </div>
+
+              <button
+                className="btn-delete-compact"
+                onClick={() => handleDelete(sesion._id)}
+                title="Eliminar sesión"
+              >
+                <MdOutlineDeleteForever />
+              </button>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
-    </>
+    </div>
   );
 }
 

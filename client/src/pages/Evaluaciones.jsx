@@ -35,7 +35,7 @@ export default function Evaluaciones({ user }) {
         const response = await axios.get(
           `/api/sesiones/${user._id}?month=${
             mesActivo - 1
-          }&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`
+          }&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`,
         );
 
         setSesiones(response.data);
@@ -55,14 +55,28 @@ export default function Evaluaciones({ user }) {
 
   const handleDelete = async () => {
     const response = await axios.get(
-      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`
+      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`,
     );
     setSesiones(response.data);
   };
 
-  const handleNuevaEvaluacion = async () => {
+  const handleNuevaEvaluacion = async (fechaAtencion) => {
+    if (fechaAtencion) {
+      const [year, month] = fechaAtencion.split("-").map(Number); // month 1-12
+      if (year !== yearActivo || month !== mesActivo) {
+        setMesActivo(month);
+        setYearActivo(year);
+        localStorage.setItem(
+          "selectedMonthYear",
+          `${year}-${String(month).padStart(2, "0")}`,
+        );
+        return;
+      }
+    }
     const response = await axios.get(
-      `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`
+      `/api/sesiones/${user._id}?month=${
+        mesActivo - 1
+      }&year=${yearActivo}&tipoDeSesion=${tipoDeSesionNombre}`,
     );
     setSesiones(response.data);
   };
@@ -72,7 +86,10 @@ export default function Evaluaciones({ user }) {
       <UserInfo user={user} />
       <h1>Mis Evaluaciones</h1>
 
-      <MonthSelector onMonthYearChange={handleDateChange} />
+      <MonthSelector
+        onMonthYearChange={handleDateChange}
+        value={`${yearActivo}-${String(mesActivo).padStart(2, "0")}`}
+      />
 
       <TotalAtenciones
         sesiones={sesiones}

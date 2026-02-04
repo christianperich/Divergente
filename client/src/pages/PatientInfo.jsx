@@ -24,27 +24,31 @@ export default function PatientInfo() {
 
   const { id } = useParams();
 
-  const valorSinBoleta = 28000;
-  const valorConBoleta = 33000;
+  const tarifas2025 = { valorSinBoleta: 28000, valorConBoleta: 33000 };
+  const tarifas2026 = { valorSinBoleta: 28000, valorConBoleta: 33000 };
+  // Tarifas 2026 aplican desde marzo 2026 (mes índice 2)
+  const usarTarifas2026 =
+    yearActivo > 2026 || (yearActivo === 2026 && mesActivo >= 2);
+  const tarifas = usarTarifas2026 ? tarifas2026 : tarifas2025;
 
   const atencionesConBoleta = sesiones.filter(
-    (sesion) => sesion.boleta === true && sesion.tipo === "Atención"
+    (sesion) => sesion.boleta === true && sesion.tipo === "Atención",
   );
 
   const atencionesSinBoleta = sesiones.filter(
-    (sesion) => sesion.boleta === false && sesion.tipo === "Atención"
+    (sesion) => sesion.boleta === false && sesion.tipo === "Atención",
   );
 
   const totalAtenciones =
-    atencionesConBoleta.length * valorConBoleta +
-    atencionesSinBoleta.length * valorSinBoleta;
+    atencionesConBoleta.length * tarifas.valorConBoleta +
+    atencionesSinBoleta.length * tarifas.valorSinBoleta;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const fetchUserInfo = await axios.get(`/api/user-data/${id}`);
         const fetchSesiones = await axios.get(
-          `/api/user-info/${id}?month=${mesActivo}&year=${yearActivo}`
+          `/api/user-info/${id}?month=${mesActivo}&year=${yearActivo}`,
         );
 
         setNombre(fetchUserInfo.data.nombre);

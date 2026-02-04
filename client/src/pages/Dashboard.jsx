@@ -38,7 +38,7 @@ export default function Dashboard({ user }) {
         }
         const response = await axios.get(
           `/api/sesiones/${user._id}?month=${mesActivo}&year=${yearActivo}`,
-          tipodeSesionNombres
+          tipodeSesionNombres,
         );
         setSesiones(response.data);
       } catch (err) {
@@ -48,20 +48,11 @@ export default function Dashboard({ user }) {
     fetchSesiones();
   }, [user, mesActivo, yearActivo, sesiones]);
 
-  const handleNuevaAtencion = async () => {
-    const response = await axios.get(
-      `/api/sesiones/${user._id}?month=${
-        mesActivo + 1
-      }&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
-    );
-    setSesiones(response.data);
-  };
-
   const handleDelete = async () => {
     const response = await axios.get(
       `/api/sesiones/${user._id}?month=${
         mesActivo + 1
-      }&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`
+      }&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`,
     );
     setSesiones(response.data);
   };
@@ -72,13 +63,38 @@ export default function Dashboard({ user }) {
     setYearActivo(year);
   };
 
+  const handleNuevaAtencion = async (fechaAtencion) => {
+    if (fechaAtencion) {
+      const [year, month] = fechaAtencion.split("-").map(Number); // month 1-12
+      const mesVisto = mesActivo + 1; // Dashboard usa mes 0-11
+      if (year !== yearActivo || month !== mesVisto) {
+        setMesActivo(month - 1);
+        setYearActivo(year);
+        localStorage.setItem(
+          "selectedMonthYear",
+          `${year}-${String(month).padStart(2, "0")}`,
+        );
+        return;
+      }
+    }
+    const response = await axios.get(
+      `/api/sesiones/${user._id}?month=${
+        mesActivo + 1
+      }&year=${yearActivo}&tipoDeSesion=${tipodeSesionNombres}`,
+    );
+    setSesiones(response.data);
+  };
+
   return (
     <>
       <UserInfo user={user} />
       <h1>Mis Atenciones</h1>
       <div>
         <div>
-          <MonthSelector onMonthYearChange={handleDateChange} />
+          <MonthSelector
+            onMonthYearChange={handleDateChange}
+            value={`${yearActivo}-${String(mesActivo + 1).padStart(2, "0")}`}
+          />
           <TotalAtenciones
             sesiones={sesiones}
             mesActivo={mesActivo}

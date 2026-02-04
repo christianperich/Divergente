@@ -1,10 +1,33 @@
 import { useState, useEffect } from "react";
 
-function ResumenMensual({ sesiones }) {
+const tarifas2025 = {
+  valorAtencion: 8000,
+  valorEvaluacion: 70000,
+  valorAseo: 11000,
+  valorAdministracion: 88000,
+};
+
+const tarifas2026 = {
+  valorAtencion: 9000,
+  valorEvaluacion: 70000,
+  valorAseo: 11000,
+  valorAdministracion: 88000,
+};
+
+function ResumenMensual({
+  sesiones,
+  yearActivo = new Date().getFullYear(),
+  mesActivo = 1,
+}) {
   const [totalAtenciones, setTotalAtenciones] = useState(0);
   const [totalEvaluaciones, setTotalEvaluaciones] = useState(0);
   const [totalAseo, setTotalAseo] = useState(0);
   const [totalAdministracion, setTotalAdministracion] = useState(0);
+
+  // Tarifas 2026 aplican desde marzo 2026 (mes 1-12: marzo = 3)
+  const usarTarifas2026 =
+    yearActivo > 2026 || (yearActivo === 2026 && mesActivo >= 3);
+  const tarifas = usarTarifas2026 ? tarifas2026 : tarifas2025;
 
   let contadorAtenciones = 0;
   let contadorAseo = 0;
@@ -31,10 +54,24 @@ function ResumenMensual({ sesiones }) {
     setTotalAdministracion(contadorAdministracion);
   }, [sesiones]);
 
-  const montoAtenciones = totalAtenciones * 8000;
-  const montoEvaluaciones = totalEvaluaciones * 70000;
-  const montoAseo = totalAseo * 11000;
-  const montoAdministracion = totalAdministracion * 88000;
+  // Calcular considerando tarifas diferenciadas por usuario cuando corresponda
+  let montoAtenciones = 0;
+  let montoEvaluaciones = 0;
+  let montoAseo = totalAseo * tarifas.valorAseo;
+  let montoAdministracion = totalAdministracion * tarifas.valorAdministracion;
+
+  sesiones.forEach((sesion) => {
+    if (sesion.tipo === "Atención") {
+      if (sesion.usuario && sesion.usuario.tarifaDiferenciada) {
+        montoAtenciones += Number(sesion.usuario.montoDivergente || 0);
+      } else {
+        montoAtenciones += tarifas.valorAtencion;
+      }
+    } else if (sesion.tipo === "Evaluación") {
+      montoEvaluaciones += tarifas.valorEvaluacion;
+    }
+  });
+
   const totalMes =
     montoAtenciones + montoEvaluaciones - montoAseo - montoAdministracion;
 

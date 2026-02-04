@@ -1,0 +1,266 @@
+/* ===== Página Admin - Panel de gestión mensual ===== */
+
+.admin-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 3rem;
+}
+
+/* Cabecera: usuario + selector de mes (siempre en columna, uno debajo del otro) */
+.admin-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: 0.5rem;
+}
+
+.admin-header .user-info {
+  margin-bottom: 0;
+}
+
+.admin-header .card {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Contenedor del selector de mes en la cabecera */
+.admin-month-wrap {
+  width: 100%;
+}
+
+.admin-month-wrap .card {
+  padding: 1rem 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.admin-month-wrap .centered {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-month-wrap label {
+  margin-bottom: 0;
+  font-weight: 600;
+  color: rgb(72, 77, 94);
+}
+
+.admin-month-wrap input[type="month"] {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  min-width: 160px;
+}
+
+/* Bloque principal: tabla de atenciones */
+.admin-table-section {
+  margin-bottom: 1.5rem;
+}
+
+.admin-table-section .card {
+  overflow: hidden;
+  padding: 1.25rem;
+}
+
+.admin-table-section h1 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: rgb(72, 77, 94);
+  border-bottom: 2px solid rgb(255, 132, 0);
+  padding-bottom: 0.5rem;
+  text-align: left;
+}
+
+/* Tabla de atenciones: legibilidad y scroll en móvil */
+.admin-table-wrapper {
+  overflow-x: auto;
+  margin-top: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-table-section table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table-section thead {
+  background: rgb(72, 77, 94);
+  color: #fff;
+}
+
+.admin-table-section th {
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.admin-table-section th a {
+  color: rgba(255, 255, 255, 0.9);
+  margin-left: 0.25rem;
+}
+
+.admin-table-section th a:hover {
+  color: rgb(255, 179, 0);
+}
+
+.admin-table-section tbody tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: background-color 0.15s ease;
+}
+
+.admin-table-section tbody tr:hover {
+  background-color: rgba(255, 132, 0, 0.06);
+}
+
+.admin-table-section td {
+  padding: 0.65rem 0.5rem;
+  vertical-align: middle;
+}
+
+.admin-table-section .btn-success,
+.admin-table-section .btn-warning {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  width: auto;
+  min-width: 80px;
+  border-radius: 6px;
+}
+
+.admin-table-section .actions {
+  white-space: nowrap;
+}
+
+.admin-table-section .action {
+  margin: 0 0.25rem;
+  font-size: 1.2rem;
+}
+
+/* Grid de resúmenes: Resumen mensual + Montos por profesional */
+.admin-resumen-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.admin-resumen-grid .card {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Card Resumen mensual */
+.admin-resumen-mensual .card h1 {
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+  color: rgb(72, 77, 94);
+  border-bottom: 2px solid rgb(255, 132, 0);
+  padding-bottom: 0.5rem;
+  text-align: left;
+}
+
+.admin-resumen-mensual .card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  text-align: left;
+  color: rgb(72, 77, 94);
+}
+
+.admin-resumen-mensual .card h2 {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.admin-resumen-mensual .money {
+  font-size: 1.5rem;
+}
+
+/* Card Montos por profesional */
+.admin-montos-prof .card h2 {
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+  color: rgb(72, 77, 94);
+  border-bottom: 2px solid rgb(255, 132, 0);
+  padding-bottom: 0.5rem;
+  text-align: left;
+}
+
+.admin-montos-prof .card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  text-align: left;
+}
+
+.admin-montos-prof .card li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-montos-prof .card li:last-of-type {
+  border-bottom: none;
+}
+
+.admin-montos-prof .card h3 {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .admin-resumen-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 0.75rem 1rem 2rem;
+  }
+
+  .admin-table-section .card {
+    padding: 1rem;
+  }
+
+  .admin-table-section table {
+    min-width: 700px;
+    font-size: 0.85rem;
+  }
+
+  .admin-table-section th,
+  .admin-table-section td {
+    padding: 0.5rem 0.35rem;
+  }
+
+  .admin-resumen-mensual .card h1,
+  .admin-montos-prof .card h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .admin-table-section table {
+    min-width: 600px;
+  }
+
+  .admin-resumen-mensual .money {
+    font-size: 1.25rem;
+  }
+}

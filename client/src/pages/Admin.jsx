@@ -5,6 +5,7 @@ import ResumenMensual from "../components/ResumenMensual";
 import ResumenMensualProfesionales from "../components/ResumenMensualProfesionales";
 import TodasLasAtencionesAdmin from "../components/TodasLasAtencionesAdmin";
 import UserInfo from "../components/UserInfo";
+import "../assets/css/admin.css";
 
 export default function Admin({ user }) {
   const [sesiones, setSesiones] = useState([]);
@@ -30,7 +31,7 @@ export default function Admin({ user }) {
           return;
         }
         const response = await axios.get(
-          `/api/sesiones?month=${mesActivo - 1}&year=${yearActivo}`
+          `/api/sesiones?month=${mesActivo - 1}&year=${yearActivo}`,
         );
         setSesiones(response.data);
       } catch (err) {
@@ -56,20 +57,41 @@ export default function Admin({ user }) {
   };
 
   return (
-    <>
-      <UserInfo user={user} />
+    <main className="admin-page">
+      <header className="admin-header">
+        <UserInfo user={user} />
+        <div className="admin-month-wrap">
+          <MonthSelector
+            onMonthYearChange={handleDateChange}
+            value={`${yearActivo}-${String(mesActivo).padStart(2, "0")}`}
+          />
+        </div>
+      </header>
 
-      <MonthSelector onMonthYearChange={handleDateChange} />
+      <section className="admin-table-section">
+        <TodasLasAtencionesAdmin
+          sesiones={sesiones}
+          updateSesiones={updateSesiones}
+          updateAdminVisualization={updateAdminVisualization}
+        />
+      </section>
 
-      <TodasLasAtencionesAdmin
-        sesiones={sesiones}
-        updateSesiones={updateSesiones}
-        updateAdminVisualization={updateAdminVisualization}
-      />
-
-      <ResumenMensual sesiones={sesiones} />
-
-      <ResumenMensualProfesionales sesiones={sesiones} />
-    </>
+      <div className="admin-resumen-grid">
+        <div className="admin-resumen-mensual">
+          <ResumenMensual
+            sesiones={sesiones}
+            yearActivo={yearActivo}
+            mesActivo={mesActivo}
+          />
+        </div>
+        <div className="admin-montos-prof">
+          <ResumenMensualProfesionales
+            sesiones={sesiones}
+            yearActivo={yearActivo}
+            mesActivo={mesActivo}
+          />
+        </div>
+      </div>
+    </main>
   );
 }

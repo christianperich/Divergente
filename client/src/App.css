@@ -426,6 +426,275 @@ ul {
   text-align: center;
 }
 
+.atencionesCard-compact {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.compact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  background: linear-gradient(
+    135deg,
+    rgba(72, 77, 94, 0.05) 0%,
+    rgba(255, 132, 0, 0.05) 100%
+  );
+  border-bottom: 2px solid rgba(255, 132, 0, 0.2);
+}
+
+.compact-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: rgb(72, 77, 94);
+  font-weight: 700;
+}
+
+.compact-sort {
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: white;
+  color: rgb(72, 77, 94);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.compact-sort:hover {
+  border-color: rgb(255, 132, 0);
+  box-shadow: 0 2px 4px rgba(255, 132, 0, 0.1);
+}
+
+.atencionCard-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.atencionCard-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.atencionCard-row:hover {
+  background: rgba(255, 132, 0, 0.03);
+}
+
+.atencionCard-row:last-child {
+  border-bottom: none;
+}
+
+.tipo-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  color: white;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.row-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.row-main {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.fecha {
+  font-weight: 600;
+  color: rgb(72, 77, 94);
+  min-width: 85px;
+  flex-shrink: 0;
+}
+
+.usuario {
+  font-weight: 700;
+  color: rgb(52, 152, 219);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tipo-text {
+  color: rgb(108, 117, 125);
+  font-size: 0.85rem;
+  padding: 0.2rem 0.5rem;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.row-status {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.status-badge,
+.boleta-badge {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-badge.paid {
+  background: rgba(46, 204, 113, 0.15);
+  color: rgb(27, 133, 68);
+}
+
+.status-badge.pending {
+  background: rgba(241, 196, 15, 0.15);
+  color: rgb(158, 128, 0);
+}
+
+.boleta-badge.yes {
+  background: rgba(46, 204, 113, 0.15);
+  color: rgb(27, 133, 68);
+}
+
+.boleta-badge.no {
+  background: rgba(220, 53, 69, 0.15);
+  color: rgb(139, 33, 43);
+}
+
+.btn-delete-compact {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: rgb(220, 53, 69);
+  padding: 0.4rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-delete-compact:hover {
+  background: rgba(220, 53, 69, 0.1);
+  color: rgb(192, 34, 55);
+}
+
+.no-sesiones {
+  padding: 1.5rem;
+  text-align: center;
+  color: rgb(108, 117, 125);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .compact-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+
+  .compact-header h3 {
+    margin-bottom: 0.3rem;
+  }
+
+  .compact-sort {
+    width: 100%;
+  }
+
+  .atencionCard-row {
+    padding: 0.6rem 0.8rem;
+    gap: 0.6rem;
+  }
+
+  .row-main {
+    flex-wrap: wrap;
+  }
+
+  .row-status {
+    order: 3;
+    width: 100%;
+    margin-top: 0.3rem;
+  }
+
+  .fecha {
+    min-width: auto;
+  }
+
+  .tipo-text {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+  }
+
+  .status-badge,
+  .boleta-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .atencionesCard-compact {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .atencionCard-list {
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .atencionCard-row {
+    flex-wrap: wrap;
+    padding: 0.5rem 0.6rem;
+    gap: 0.4rem;
+  }
+
+  .row-main {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .usuario {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .tipo-badge {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+}
+
 .atencionCard {
   display: flex;
   flex-direction: column;

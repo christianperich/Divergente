@@ -111,12 +111,41 @@ router.post("/agregar-profesional", async (req, res) => {
 });
 
 router.post("/agregar-usuario", async (req, res) => {
-  const { nombre, apoderado } = req.body;
-
-  const nuevoUsuario = new Usuario({
+  const {
     nombre,
     apoderado,
-  });
+    tarifaDiferenciada,
+    montoProfesional,
+    montoDivergente,
+  } = req.body;
+
+  const nuevoUsuarioData = {
+    nombre,
+    apoderado,
+  };
+
+  // Si tarifaDiferenciada es true, incluir los campos de montos con defaults
+  if (tarifaDiferenciada === true) {
+    nuevoUsuarioData.tarifaDiferenciada = true;
+    nuevoUsuarioData.montoProfesional =
+      typeof montoProfesional !== "undefined"
+        ? Number(montoProfesional)
+        : 12500;
+    nuevoUsuarioData.montoDivergente =
+      typeof montoDivergente !== "undefined" ? Number(montoDivergente) : 5000;
+
+    // Validar que no sean negativos
+    if (
+      nuevoUsuarioData.montoProfesional < 0 ||
+      nuevoUsuarioData.montoDivergente < 0
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Los montos no pueden ser negativos" });
+    }
+  }
+
+  const nuevoUsuario = new Usuario(nuevoUsuarioData);
 
   await nuevoUsuario.save();
 
@@ -305,6 +334,61 @@ router.put("/sesiones/:id", async (req, res) => {
   return res
     .status(200)
     .json({ message: "La sesión fue actualizada correctamente" });
+});
+
+// Actualizar usuario (permitir cambiar montos solo a admins)
+router.put("/usuarios/:id", authRequired, async (req, res) => {
+  const { id } = req.params;
+  const {
+    nombre,
+    apoderado,
+    tarifaDiferenciada,
+    montoProfesional,
+    montoDivergente,
+  } = req.body;
+
+  try {
+    const update = {};
+
+    if (typeof nombre !== "undefined") update.nombre = nombre;
+    if (typeof apoderado !== "undefined") update.apoderado = apoderado;
+    if (typeof tarifaDiferenciada !== "undefined")
+      update.tarifaDiferenciada = Boolean(tarifaDiferenciada);
+
+    // Montos solo puede cambiarlos admin
+    if (
+      typeof montoProfesional !== "undefined" ||
+      typeof montoDivergente !== "undefined"
+    ) {
+      if (req.user.role !== "admin") {
+        return res.status(403).json({
+          message: "Solo administradores pueden modificar los montos",
+        });
+      }
+
+      if (typeof montoProfesional !== "undefined") {
+        const mp = Number(montoProfesional);
+        if (isNaN(mp) || mp < 0)
+          return res.status(400).json({ message: "montoProfesional inválido" });
+        update.montoProfesional = mp;
+      }
+
+      if (typeof montoDivergente !== "undefined") {
+        const md = Number(montoDivergente);
+        if (isNaN(md) || md < 0)
+          return res.status(400).json({ message: "montoDivergente inválido" });
+        update.montoDivergente = md;
+      }
+    }
+
+    await Usuario.findOneAndUpdate({ _id: id }, update);
+    return res
+      .status(200)
+      .json({ message: "Usuario actualizado correctamente" });
+  } catch (err) {
+    console.error("Error al actualizar usuario:", err);
+    return res.status(500).json({ message: "Error actualizando usuario" });
+  }
 });
 
 export default router;

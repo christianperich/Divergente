@@ -54,11 +54,11 @@ export default function NuevaAtencion({ user, onNuevaAtencion, tipoDeSesion }) {
       setNombre("");
       setFecha("");
       setSesion("");
+      onNuevaAtencion(fecha);
     } catch (err) {
       console.error("Error al ingresar la sesión:", err);
+      onNuevaAtencion();
     }
-
-    onNuevaAtencion();
   };
 
   return (
