@@ -25,7 +25,7 @@ export default function TotalAtenciones({
   // Tarifas 2026 (reajuste)
   const tarifas2026 = {
     valorSinBoletaAtencion: 21000, // Ajustar según reajuste 2026
-    valorConBoletaAtencion: 26000,
+    valorConBoletaAtencion: 26490,
     valorEvaluacionNino: 28000,
     valorEvaluacionAdulto: 30000,
     valorAseo: 11000,
