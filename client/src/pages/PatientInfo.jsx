@@ -25,7 +25,7 @@ export default function PatientInfo() {
   const { id } = useParams();
 
   const tarifas2025 = { valorSinBoleta: 28000, valorConBoleta: 33000 };
-  const tarifas2026 = { valorSinBoleta: 28000, valorConBoleta: 33000 };
+  const tarifas2026 = { valorSinBoleta: 30000, valorConBoleta: 36000 };
   // Tarifas 2026 aplican desde marzo 2026 (mes índice 2)
   const usarTarifas2026 =
     yearActivo > 2026 || (yearActivo === 2026 && mesActivo >= 2);
