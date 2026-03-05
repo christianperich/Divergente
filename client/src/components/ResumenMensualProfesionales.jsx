@@ -8,7 +8,7 @@ const tarifas2025 = {
 };
 
 const tarifas2026 = {
-  valorConBoletaAtencion: 26000,
+  valorConBoletaAtencion: 26490,
   valorSinBoletaAtencion: 21000,
   valorAseo: 11000,
   valorAdministracion: 88000,

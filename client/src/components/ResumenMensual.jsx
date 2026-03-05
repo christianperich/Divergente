@@ -8,7 +8,7 @@ const tarifas2025 = {
 };
 
 const tarifas2026 = {
-  valorAtencion: 9000,
+  valorAtencion: 9510,
   valorEvaluacion: 70000,
   valorAseo: 11000,
   valorAdministracion: 88000,
