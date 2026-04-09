@@ -9,6 +9,7 @@ export default function TotalAtenciones({
   const [totalAtenciones, setTotalAtenciones] = useState(0);
   const [sinBoleta, setSinBoleta] = useState(0);
   const [conBoleta, setConBoleta] = useState(0);
+  const [diferenciada, setDiferenciada] = useState(0);
   const [aseo, setAseo] = useState(0);
   const [administracion, setAdministracion] = useState(0);
 
@@ -40,9 +41,11 @@ export default function TotalAtenciones({
   useEffect(() => {
     let contadorSinBoleta = 0;
     let contadorConBoleta = 0;
+    let contadorDiferenciada = 0;
     let contadorAseo = 0;
     let contadorAdministracion = 0;
-    let descontarConTarifaDiferenciada = 0;
+
+    let total = 0;
 
     sesiones.forEach((sesion) => {
       const fecha = new Date(sesion.fecha);
@@ -58,63 +61,59 @@ export default function TotalAtenciones({
       const yearSesion = fechaUTC.getUTCFullYear();
       const monthSesion = fechaUTC.getUTCMonth();
 
-      if (sesion.usuario.tarifaDiferenciada && sesion.usuario.boleta) {
-        descontarConTarifaDiferenciada +=
-          tarifas.valorConBoletaAtencion - sesion.usuario.montoProfesional;
-      } else if (sesion.usuario.tarifaDiferenciada && !sesion.usuario.boleta) {
-        descontarConTarifaDiferenciada +=
-          tarifas.valorSinBoletaAtencion - sesion.usuario.montoProfesional;
-      }
+      if (monthSesion === mesActivo && yearSesion === yearActivo) {
+        let monto = 0;
 
-      if (
-        sesion.tipo === tipoDeSesion[0].nombre &&
-        monthSesion === mesActivo &&
-        yearSesion === yearActivo
-      ) {
-        if (sesion.boleta) {
-          contadorConBoleta++;
-        } else {
-          contadorSinBoleta++;
+        if (sesion.tipo === tipoDeSesion[0].nombre) {
+          if (sesion.tipo === "Atención") {
+            if (sesion.usuario && sesion.usuario.tarifaDiferenciada) {
+              contadorDiferenciada++;
+              monto = Number(sesion.usuario.montoProfesional || 0);
+            } else {
+              if (sesion.boleta) {
+                contadorConBoleta++;
+                monto = tarifas.valorConBoletaAtencion;
+              } else {
+                contadorSinBoleta++;
+                monto = tarifas.valorSinBoletaAtencion;
+              }
+            }
+          } else if (sesion.tipo === "Evaluación") {
+            if (sesion.boleta) {
+              contadorConBoleta++;
+              monto = tarifas.valorEvaluacionAdulto;
+            } else {
+              contadorSinBoleta++;
+              monto = tarifas.valorEvaluacionNino;
+            }
+          }
         }
-      }
 
-      if (
-        sesion.tipo === "Aseo" &&
-        monthSesion === mesActivo &&
-        yearSesion === yearActivo
-      ) {
-        contadorAseo++;
-      }
+        if (sesion.tipo === "Aseo") {
+          contadorAseo++;
+          if (tipoDeSesion[0].nombre === "Atención") {
+            monto = tarifas.valorAseo;
+          }
+        }
 
-      if (
-        sesion.tipo === "Administración" &&
-        monthSesion === mesActivo &&
-        yearSesion === yearActivo
-      ) {
-        contadorAdministracion++;
+        if (sesion.tipo === "Administración") {
+          contadorAdministracion++;
+          monto = tarifas.valorAdministracion;
+        }
+
+        total += monto;
       }
     });
 
     // Actualizar los estados
     setSinBoleta(contadorSinBoleta);
     setConBoleta(contadorConBoleta);
+    setDiferenciada(contadorDiferenciada);
     setAseo(contadorAseo);
     setAdministracion(contadorAdministracion);
 
-    let total =
-      tipoDeSesion[0].nombre === "Atención"
-        ? contadorSinBoleta * tarifas.valorSinBoletaAtencion +
-          contadorConBoleta * tarifas.valorConBoletaAtencion +
-          contadorAseo * tarifas.valorAseo
-        : contadorSinBoleta * tarifas.valorEvaluacionNino +
-          contadorConBoleta * tarifas.valorEvaluacionAdulto;
-
-    total +=
-      contadorAdministracion * tarifas.valorAdministracion -
-      descontarConTarifaDiferenciada;
-
     setTotalAtenciones(total);
-  }, [sesiones, mesActivo, yearActivo, tipoDeSesion]);
+  }, [sesiones, mesActivo, yearActivo, tipoDeSesion, tarifas]);
 
   return (
     <div className="card">
@@ -134,6 +133,9 @@ export default function TotalAtenciones({
               : "Atención con boleta"}
             : {conBoleta}
           </p>
+          {tipoDeSesion[0].nombre === "Atención" && (
+            <p>Atención arancel diferenciado: {diferenciada}</p>
+          )}
         </div>
 
         <div className="card-info-item">
