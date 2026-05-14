@@ -51,6 +51,8 @@ function ResumenMensual({
         totalDiferenciado += 1;
 
         montoDiferenciado += Number(sesion.usuario?.montoDivergente || 0);
+        console.log("Monto por usuario:", sesion.usuario?.montoDivergente);
+        console.log("Total diferenciado acumulado:", montoDiferenciado);
       }
 
       // Con boleta
