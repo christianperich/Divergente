@@ -32,16 +32,33 @@ export default function PatientInfo() {
   const tarifas = usarTarifas2026 ? tarifas2026 : tarifas2025;
 
   const atencionesConBoleta = sesiones.filter(
-    (sesion) => sesion.boleta === true && sesion.tipo === "Atención",
+    (sesion) =>
+      sesion.boleta === true &&
+      sesion.tipo === "Atención" &&
+      sesion.usuario?.tarifaDiferenciada === false,
   );
 
   const atencionesSinBoleta = sesiones.filter(
     (sesion) => sesion.boleta === false && sesion.tipo === "Atención",
   );
 
+  const atencionesArancelDiferenciado = sesiones.filter(
+    (sesion) =>
+      sesion.usuario?.tarifaDiferenciada === true && sesion.tipo === "Atención",
+  );
+
   const totalAtenciones =
     atencionesConBoleta.length * tarifas.valorConBoleta +
-    atencionesSinBoleta.length * tarifas.valorSinBoleta;
+    atencionesSinBoleta.length * tarifas.valorSinBoleta +
+    atencionesArancelDiferenciado.reduce((total, sesion) => {
+      return (
+        total +
+        (sesion.usuario?.montoDivergente || 0) +
+        (sesion.usuario?.montoProfesional || 0)
+      );
+    }, 0);
+
+  console.log(sesiones);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,6 +124,7 @@ export default function PatientInfo() {
                 </a>
               </th>
               <th>Tipo de atención</th>
+              <th>Valor atención</th>
               <th>Pagado a Divergente</th>
               <th>Pagado a Profesional</th>
             </tr>
@@ -122,6 +140,22 @@ export default function PatientInfo() {
                 </td>
                 <td>{sesion.profesional.nombre}</td>
                 <td>{sesion.tipo}</td>
+                <td>
+                  {sesion.tipo === "Atención"
+                    ? sesion.boleta === true &&
+                      !sesion.usuario?.tarifaDiferenciada
+                      ? `$${tarifas.valorConBoleta.toLocaleString()}`
+                      : sesion.boleta === false &&
+                          !sesion.usuario?.tarifaDiferenciada
+                        ? `$${tarifas.valorSinBoleta.toLocaleString()}`
+                        : sesion.usuario?.tarifaDiferenciada === true
+                          ? `$${(
+                              (sesion.usuario?.montoDivergente || 0) +
+                              (sesion.usuario?.montoProfesional || 0)
+                            ).toLocaleString()}`
+                          : "N/A"
+                    : "N/A"}
+                </td>
                 <td>{sesion.pagadoDivergente ? "Si" : "No"}</td>
                 <td>{sesion.pagadoProfesional ? "Si" : "No"}</td>
               </tr>
