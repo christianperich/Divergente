@@ -21,77 +21,78 @@ function ResumenMensual({
   yearActivo = new Date().getFullYear(),
   mesActivo = 1,
 }) {
-  const [totalConBoleta, setTotalConBoleta] = useState(0);
-  const [totalSinBoleta, setTotalSinBoleta] = useState(0);
-  const [totalDiferenciado, setTotalDiferenciado] = useState(0);
-
-  const [totalEvaluaciones, setTotalEvaluaciones] = useState(0);
-  const [totalAseo, setTotalAseo] = useState(0);
-  const [totalAdministracion, setTotalAdministracion] = useState(0);
-
-  // Tarifas 2026 desde marzo
   const usarTarifas2026 =
     yearActivo > 2026 || (yearActivo === 2026 && mesActivo >= 3);
 
   const tarifas = usarTarifas2026 ? tarifas2026 : tarifas2025;
 
-  useEffect(() => {
-    let contadorConBoleta = 0;
-    let contadorSinBoleta = 0;
-    let contadorDiferenciado = 0;
-    let contadorAseo = 0;
-    let contadorAdministracion = 0;
+  let totalConBoleta = 0;
+  let totalSinBoleta = 0;
+  let totalDiferenciado = 0;
 
-    const evaluadosUnicos = new Set();
-
-    sesiones.forEach((sesion) => {
-      if (sesion.tipo === "Atención") {
-        // Arancel diferenciado
-        if (sesion.usuario?.tarifaDiferenciada) {
-          contadorDiferenciado += 1;
-        }
-
-        // Con boleta
-        else if (sesion.boleta === true) {
-          contadorConBoleta += 1;
-        }
-
-        // Sin boleta
-        else {
-          contadorSinBoleta += 1;
-        }
-      } else if (sesion.tipo === "Evaluación") {
-        if (sesion.usuario?.nombre) {
-          evaluadosUnicos.add(sesion.usuario.nombre);
-        }
-      } else if (sesion.tipo === "Aseo") {
-        contadorAseo += 1;
-      } else if (sesion.tipo === "Administración") {
-        contadorAdministracion += 1;
-      }
-    });
-
-    setTotalConBoleta(contadorConBoleta);
-    setTotalSinBoleta(contadorSinBoleta);
-    setTotalDiferenciado(contadorDiferenciado);
-
-    setTotalEvaluaciones(evaluadosUnicos.size);
-    setTotalAseo(contadorAseo);
-    setTotalAdministracion(contadorAdministracion);
-  }, [sesiones]);
-
-  // MONTOS
-  let montoConBoleta = totalConBoleta * tarifas.valorConBoleta;
-
-  let montoSinBoleta = totalSinBoleta * tarifas.valorSinBoleta;
-
+  let montoConBoleta = 0;
+  let montoSinBoleta = 0;
   let montoDiferenciado = 0;
 
+  let totalEvaluaciones = 0;
+  let totalAseo = 0;
+  let totalAdministracion = 0;
+
+  const evaluadosUnicos = new Set();
+
   sesiones.forEach((sesion) => {
-    if (sesion.tipo === "Atención" && sesion.usuario?.tarifaDiferenciada) {
-      montoDiferenciado += Number(sesion.usuario?.montoDivergente || 0);
+    // ======================
+    // ATENCIONES
+    // ======================
+
+    if (sesion.tipo === "Atención") {
+      // Diferenciado
+      if (sesion.usuario?.tarifaDiferenciada) {
+        totalDiferenciado += 1;
+
+        montoDiferenciado += Number(sesion.usuario?.montoDivergente || 0);
+      }
+
+      // Con boleta
+      else if (sesion.boleta === true) {
+        totalConBoleta += 1;
+
+        montoConBoleta += tarifas.valorConBoleta;
+      }
+
+      // Sin boleta
+      else {
+        totalSinBoleta += 1;
+
+        montoSinBoleta += tarifas.valorSinBoleta;
+      }
+    }
+
+    // ======================
+    // EVALUACIONES
+    // ======================
+    else if (sesion.tipo === "Evaluación") {
+      if (sesion.usuario?.nombre) {
+        evaluadosUnicos.add(sesion.usuario.nombre);
+      }
+    }
+
+    // ======================
+    // ASEO
+    // ======================
+    else if (sesion.tipo === "Aseo") {
+      totalAseo += 1;
+    }
+
+    // ======================
+    // ADMINISTRACIÓN
+    // ======================
+    else if (sesion.tipo === "Administración") {
+      totalAdministracion += 1;
     }
   });
+
+  totalEvaluaciones = evaluadosUnicos.size;
 
   const montoEvaluaciones = totalEvaluaciones * tarifas.valorEvaluacion;
 
@@ -112,22 +113,22 @@ function ResumenMensual({
       <h1>Resumen mensual Divergente</h1>
 
       <h3>
-        Atenciones con boleta: ${montoConBoleta.toLocaleString()} (
+        Atenciones con boleta: ${montoConBoleta.toLocaleString()}(
         {totalConBoleta} atenciones)
       </h3>
 
       <h3>
-        Atenciones sin boleta: ${montoSinBoleta.toLocaleString()} (
+        Atenciones sin boleta: ${montoSinBoleta.toLocaleString()}(
         {totalSinBoleta} atenciones)
       </h3>
 
       <h3>
-        Atenciones arancel diferenciado: ${montoDiferenciado.toLocaleString()} (
+        Atenciones arancel diferenciado: ${montoDiferenciado.toLocaleString()}(
         {totalDiferenciado} atenciones)
       </h3>
 
       <h3>
-        Evaluaciones: ${montoEvaluaciones.toLocaleString()} ({totalEvaluaciones}{" "}
+        Evaluaciones: ${montoEvaluaciones.toLocaleString()}({totalEvaluaciones}{" "}
         evaluaciones)
       </h3>
 
